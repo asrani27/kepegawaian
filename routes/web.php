@@ -38,7 +38,7 @@ Route::get('/login', function(){
     if(Auth::check()){
         return redirect('/');
     }
-    return view('welcome');
+    return view('login');
 })->name('login');
 
 Route::post('/login', [LoginController::class, 'login']);
