@@ -86,7 +86,7 @@
                             <input type="hidden" class="form-control" value="{{ $data['ket_jabatan'] }}" name="ket_jabatan" required readonly>
                             <input type="hidden" class="form-control" value="{{ $data['nm_pangkat'] }}" name="nm_pangkat" required readonly>
                             <input type="hidden" class="form-control" value="{{ $data['tmt_pangkat'] }}" name="tmt_pangkat" required readonly>
-                            <input type="hidden" class="form-control" value="{{ $data['tmt_eselon'] }}" name="tmt_eselon" required readonly>
+                            {{-- <input type="hidden" class="form-control" value="{{ $data['tmt_eselon'] }}" name="tmt_eselon" required readonly> --}}
 
                             <div class="form-group row">
                             <label class="col-sm-2 col-form-label"></label>
