@@ -15,7 +15,7 @@ Beranda
 
         <div class="info-box-content">
           <span class="info-box-text">Total Pegawai</span>
-          <span class="info-box-number">5.430</span>
+          <span class="info-box-number">{{$t_pegawai}}</span>
 
           <div class="progress">
             <div class="progress-bar" style="width: 70%"></div>
@@ -35,7 +35,7 @@ Beranda
 
         <div class="info-box-content">
           <span class="info-box-text">PNS</span>
-          <span class="info-box-number">410</span>
+          <span class="info-box-number">{{$t_pns}}</span>
 
           <div class="progress">
             <div class="progress-bar" style="width: 70%"></div>
@@ -55,7 +55,7 @@ Beranda
 
         <div class="info-box-content">
           <span class="info-box-text">CPNS</span>
-          <span class="info-box-number">10</span>
+          <span class="info-box-number">{{$t_cpns}}</span>
 
           <div class="progress">
             <div class="progress-bar" style="width: 70%"></div>

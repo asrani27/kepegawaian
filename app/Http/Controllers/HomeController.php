@@ -7,6 +7,7 @@ use App\Models\Soal;
 use App\Models\Waktu;
 use App\Models\Jawaban;
 use App\Models\Layanan;
+use App\Models\Pegawai;
 use App\Models\Peserta;
 use App\Models\Kategori;
 use App\Models\Pengajuan;
@@ -24,7 +25,11 @@ class HomeController extends Controller
     public function superadmin()
     {
         $pengajuan = Pengajuan::orderBy('status','ASC')->paginate(10);
-        return view('superadmin.home',compact('pengajuan'));
+        $t_pegawai = count(Pegawai::all());
+        $t_pns = count(Pegawai::where('status_pegawai', 'PNS')->get());
+        $t_cpns = count(Pegawai::where('status_pegawai', 'CPNS')->get());
+        
+        return view('superadmin.home',compact('pengajuan','t_pegawai','t_pns','t_cpns'));
     }
 
     public function gantipass()
