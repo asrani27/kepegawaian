@@ -63,7 +63,14 @@ class SyncBkd implements ShouldQueue
                 
                 Pegawai::create($attr);
             }else{
-
+                
+                $attr['skpd']       = $resp->nm_skpd;
+                $attr['status_pegawai']  = $resp->nm_status;
+                $attr['unit_kerja']      = $resp->nm_unitkerja;
+                $attr['nm_pangkat']      = $resp->nm_pangkat;
+                $attr['gol_pangkat']     = $resp->gol_pangkat;
+                $attr['ket_jabatan']     = $resp->ket_jabatan;
+                $check->update($attr);
             }
         }
         catch(\Exception $e)

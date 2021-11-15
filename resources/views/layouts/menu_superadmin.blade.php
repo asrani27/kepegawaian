@@ -25,6 +25,24 @@
         </p>
     </a>
     </li> --}}
+    <li class="nav-header">DATA UTAMA</li>
+    <li class="nav-item">
+        <a href="/superadmin/skpd" class="nav-link {{ Request::is('superadmin/skpd*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+                SKPD
+            </p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/superadmin/admin" class="nav-link {{ Request::is('superadmin/admin*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+                Admin Layanan
+            </p>
+        </a>
+    </li>
+
     <li class="nav-item">
     <a href="/superadmin/pegawai" class="nav-link {{ Request::is('superadmin/pegawai*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-users"></i>
@@ -52,6 +70,7 @@
     </a>
     </li>
 
+    <li class="nav-header">SETTING</li>
     <li class="nav-item">
     <a href="/logout" class="nav-link">
         <i class="nav-icon fas fa-sign-out-alt"></i>

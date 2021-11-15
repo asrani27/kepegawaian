@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Pegawai::class, 'user_id');
     }
+    
+    public function skpd()
+    {
+        return $this->hasOne(Skpd::class, 'user_id');
+    }
 }

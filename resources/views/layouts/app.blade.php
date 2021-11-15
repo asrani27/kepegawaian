@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -12,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>SIMPEG</title>
   @include('layouts.css')
 </head>
-<body class="hold-transition sidebar-mini text-sm">
+<body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -50,6 +46,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         @include('layouts.menu_superadmin')
       @elseif (Auth::user()->hasRole('admin'))
         @include('layouts.menu_admin')
+      @elseif (Auth::user()->hasRole('kepangkatan'))
+        @include('layouts.menu_kepangkatan')
       @else
         @include('layouts.menu_pegawai')
       @endif

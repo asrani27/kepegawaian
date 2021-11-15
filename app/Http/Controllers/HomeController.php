@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function datapeserta()
+    public function admin()
     {
-        return Peserta::get();
+        return view('skpd.home');
     }
 
     public function superadmin()
@@ -65,5 +65,11 @@ class HomeController extends Controller
         $layanan = Layanan::get();
         $pengajuan = Pengajuan::where('pegawai_id', $pegawai->id)->get();
         return view('pegawai.home',compact('page','pegawai','layanan','pengajuan'));
+    }
+
+    public function kepangkatan()
+    {
+        //Sub Bidang Kepangkatan
+        return view('kepangkatan.home');
     }
 }
