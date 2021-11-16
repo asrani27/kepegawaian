@@ -45,7 +45,16 @@
             @foreach ($data as $key => $item)
                     <tr style="font-size:11px; font-family:Arial, Helvetica, sans-serif">
                     <td>{{$data->firstItem() + $key}}</td>
-                    <td>{{$item->nip}} <br/>{{$item->nama}}<br/>{{$item->pangkat}}</td>
+                    <td>{{$item->nip}} <br/>{{$item->nama}}<br/>{{$item->pangkat}} <br/>
+                    
+                        @if ($item->status_tolak == 1)
+                        <strong>
+                            <span class="text-danger">Status : Dikembalikan <br/>
+                            {{$item->keterangan_tolak}}
+                            </span>
+                        </strong>
+                        @endif
+                    </td>
                     <td>
                     <strong>
                       @if ($item->sk_cpns == null)
@@ -82,7 +91,11 @@
                       <a href="/admin/berkala/{{$item->id}}/kirim" class="btn btn-xs btn-outline-danger" onclick="return confirm('Yakin Sudah Selesai Semua?')"> <i class="fas fa-paper-plane"></i> Validasi & Kirim Ke BKD</a>
                           
                       @else
-                          <span class="text-primary text-bold">Menunggu Di Proses BKD</span>
+                            @if ($item->sk_ttd == null)
+                                <span class="text-primary text-bold">Menunggu Di Proses BKD</span>
+                            @else
+                                <span class="text-success text-bold">SK SELESAI, Silahkan ambil ke BKD</span>
+                            @endif
                       @endif
                     </td>
                 </tr>

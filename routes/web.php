@@ -107,11 +107,15 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::get('berkala', [BerkalaController::class, 'index']);
         Route::get('berkala/create', [BerkalaController::class, 'create']);
         Route::post('berkala/create', [BerkalaController::class, 'store']);
+
         Route::get('berkala/{id}/upload', [BerkalaController::class, 'upload']);
         Route::post('berkala/{id}/upload', [BerkalaController::class, 'storeUpload']);
         Route::get('berkala/{id}/kirim', [BerkalaController::class, 'validasi_kirim']);
         
         Route::get('kepangkatan', [KepangkatanController::class, 'index']);
+        Route::get('kepangkatan/create', [KepangkatanController::class, 'create']);
+        Route::post('kepangkatan/create', [KepangkatanController::class, 'store']);
+
         Route::get('pmk', [PmkController::class, 'index']);
         Route::get('gantipass', [GantiPassController::class, 'admin']);
         Route::post('gantipass', [GantiPassController::class, 'resetadmin']);
@@ -123,10 +127,12 @@ Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
     Route::prefix('kepangkatan')->group(function () {
         Route::get('berkala', [BerkalaController::class, 'k_index']);
         Route::get('pangkat', [KepangkatanController::class, 'k_index']);
+
         Route::get('berkala/editpejabat', [BerkalaController::class, 'k_editpejabat']);
         Route::post('berkala/editpejabat', [BerkalaController::class, 's_editpejabat']);
         Route::get('berkala/{id}/print', [BerkalaController::class, 'printSK']);
-        Route::get('berkala/ditolak', [BerkalaController::class, 'k_tolak']);
+        Route::post('berkala/ditolak', [BerkalaController::class, 'k_tolak']);
+        Route::post('berkala/upload', [BerkalaController::class, 'k_upload']);
         Route::get('berkala/{id}/sk', [BerkalaController::class, 'sk_berkala']);
         Route::get('berkala/{id}/sk/edit', [BerkalaController::class, 'sk_berkala_edit']);
         Route::post('berkala/{id}/sk', [BerkalaController::class, 'simpan_sk_berkala']);

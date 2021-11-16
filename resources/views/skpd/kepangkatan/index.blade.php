@@ -27,13 +27,13 @@
             </div>
         </div>
         <!-- /.card-header -->
-        {{-- <div class="card-body table-responsive p-0">
+        <div class="card-body table-responsive p-0">
             <table class="table table-hover text-nowrap table-sm">
             <thead>
                 <tr>
                 <th>#</th>
                 <th>NIP/Nama/Jabatan</th>
-                <th>File Persyaratan</th>
+                <th>Status</th>
                 <th>Aksi</th>
                 </tr>
             </thead>
@@ -44,20 +44,18 @@
             @foreach ($data as $key => $item)
                     <tr style="font-size:11px; font-family:Arial, Helvetica, sans-serif">
                     <td>{{$data->firstItem() + $key}}</td>
+                    <td>{{$item->pegawai->nip}}<br/>{{$item->pegawai->nama}}<br/>{{$item->pegawai->nm_pangkat}}</td>
                     <td>
-                        @if ($item->foto == null)
-                        <img class="img-circle img-bordered-sm" src="/theme/dist/img/default-150x150.png" alt="user image" width="60px">
-                        @else
-                        <img class="img-circle img-bordered-sm" src="/storage/{{$item->nip}}/{{$item->foto}}" alt="user image" width="60px">
-                        @endif
+                        Di Proses
                     </td>
-                    <td>{{$item->nip}}<br/>{{$item->nama}}</td>
-                    <td>{{$item->tempat_lahir}}, {{$item->tanggal_lahir}}</td>
+                    <td>
+                        <a href="" class="btn btn-primary">Detail</a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
             </table>
-        </div> --}}
+        </div>
         <!-- /.card-body -->
         </div>
         {{-- {{$data->links()}} --}}

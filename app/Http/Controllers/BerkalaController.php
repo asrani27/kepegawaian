@@ -126,17 +126,21 @@ class BerkalaController extends Controller
 
     public function validasi_kirim($id)
     {
-        Berkala::find($id)->update(['validasi_skpd' => 1]);
+        Berkala::find($id)->update([
+            'validasi_skpd' => 1,
+            'status_tolak' => null
+        ]);
         toastr()->success('Berhasil Di Verfikasi Dan Di Kirim Ke BKD');
         return back();
     }
 
-    // Fucntion Untuk Admin Sub Bidang Kepangkatan
+    // Function Untuk Admin Sub Bidang Kepangkatan
     public function k_index()
     {
-        $data = Berkala::where('validasi_skpd',1)->paginate(10);
+        $data = Berkala::where('validasi_skpd',1)->orderBy('created_at','DESC')->paginate(10);
+        $tolak = Berkala::where('status_tolak',1)->orderBy('created_at','DESC')->paginate(10);
         $ttd = Pegawai::where('ttd', 1)->first();
-        return view('kepangkatan.berkala.index',compact('data','ttd'));
+        return view('kepangkatan.berkala.index',compact('data','ttd', 'tolak'));
     }
 
     public function sk_berkala($id)
@@ -169,9 +173,16 @@ class BerkalaController extends Controller
 
     }
     
-    public function k_tolak()
+    public function k_tolak(Request $req)
     {
+        Berkala::find($req->berkala_id)->update([
+            'status_tolak' => 1, 
+            'keterangan_tolak' => $req->keterangan_tolak,
+            'validasi_skpd' => null,
+        ]);
 
+        toastr()->success('Berhasil Dikembalikan ke SKPD terkait');
+        return back();
     }
     
     public function k_editpejabat()
@@ -196,5 +207,34 @@ class BerkalaController extends Controller
     {
         $data = Berkala::find($id);
         return view('kepangkatan.berkala.print',compact('data'));
+    }
+
+    public function k_upload(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'sk_ttd'  => 'mimes:pdf|max:5120',
+        ]);
+
+        
+        if ($validator->fails()) {
+            toastr()->error('File harus PDF dan Maks 5MB');
+            return back();
+        }
+        
+        $berkala = Berkala::find($req->berkala_id);
+
+        $sk_ttd = $req->sk_ttd == null ? $berkala->sk_ttd : 'SKTTD_'.$berkala->nip.'.pdf';
+
+        if($req->hasFile('sk_ttd'))
+        {
+            $req->sk_ttd->storeAs('/public/'.$berkala->nip.'/berkala/'.$berkala->id,$sk_ttd);
+        }
+        
+        $berkala->update([
+            'sk_ttd' => $sk_ttd,
+        ]);
+
+        toastr()->success('Berhasil Di Upload');
+        return redirect('/kepangkatan/berkala');
     }
 }

@@ -62,7 +62,7 @@
                                 <input type="text" class="form-control" name="nama" value="{{$data->nama}}">
                             </div>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="nama" value="{{$data->tanggal_lahir}}">
+                                <input type="date" class="form-control" name="nama" value="{{$data->tanggal_lahir}}">
                             </div>
                             </div>
                             
