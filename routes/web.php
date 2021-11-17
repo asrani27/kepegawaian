@@ -115,6 +115,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::get('kepangkatan', [KepangkatanController::class, 'index']);
         Route::get('kepangkatan/create', [KepangkatanController::class, 'create']);
         Route::post('kepangkatan/create', [KepangkatanController::class, 'store']);
+        Route::get('kepangkatan/{id}', [KepangkatanController::class, 'detail']);
+        Route::get('kepangkatan/{id}/kirim', [KepangkatanController::class, 'validasi_kirim']);
+        Route::post('kepangkatan/{id}', [KepangkatanController::class, 'uploadSyarat']);
 
         Route::get('pmk', [PmkController::class, 'index']);
         Route::get('gantipass', [GantiPassController::class, 'admin']);
@@ -127,6 +130,7 @@ Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
     Route::prefix('kepangkatan')->group(function () {
         Route::get('berkala', [BerkalaController::class, 'k_index']);
         Route::get('pangkat', [KepangkatanController::class, 'k_index']);
+        Route::get('pangkat/{id}/dokumen', [KepangkatanController::class, 'k_dokumen']);
 
         Route::get('berkala/editpejabat', [BerkalaController::class, 'k_editpejabat']);
         Route::post('berkala/editpejabat', [BerkalaController::class, 's_editpejabat']);

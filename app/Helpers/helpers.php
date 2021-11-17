@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Upload;
+use App\Models\Berkala;
 
 function listUpload($pegawai_id, $persyaratan_id)
 {
@@ -11,6 +12,11 @@ function listSyarat($persyaratan_id)
 {
     $id = json_decode($persyaratan_id);
     return Upload::whereIn('id', $id)->get();
+}
+
+function berkalaBaru()
+{
+    return count(Berkala::where('validasi_skpd', 1)->where('sk_ttd',null)->get());
 }
 
 function konversi_nip($nip, $batas = " ") {

@@ -17,11 +17,10 @@ Pangkat
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
-          {{-- <table class="table table-hover table-sm table-striped">
+          <table class="table table-hover table-sm table-striped">
               <thead>
                   <th>No</th>
                   <th>NIP/Nama/Jabatan</th>
-                  <th>File Persyaratan</th>
                   <th>Tanggal Di Buat</th>
                   <th>SKPD</th>
                   <th>Aksi</th>
@@ -30,56 +29,19 @@ Pangkat
                 @foreach ($data as $key => $item) 
                 <tr style="font-size:10px; font-family:Arial, Helvetica, sans-serif">
                   <td>{{$data->firstItem() + $key}}</td>
-                  <td>{{$item->nip}} <br/>{{$item->nama}}<br/>{{$item->pangkat}}</td>
+                  <td>{{$item->pegawai->nip}} <br/>{{$item->pegawai->nama}}<br/>{{$item->pegawai->nm_pangkat}} / {{$item->pegawai->pol_pangkat}}</td>
+                  <td>{{\Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i')}}</td>
+                  <td>{{$item->pegawai->skpd}} <br/>
+                    Telah Di Validasi Oleh Umpeg
+                  </td>
                   <td>
                     
-                    <strong>
-                      @if ($item->sk_cpns == null)
-                      SK CPNS
-                      @else
-                      <a href="/storage/{{$item->nip}}/berkala/{{$item->id}}/{{$item->sk_cpns}}" class="text-primary" target="_blank">SK CPNS</a>
-                      @endif
-                      <br/>
-                      @if ($item->sk_pns == null)
-                      SK PNS
-                      @else
-                      <a href="/storage/{{$item->nip}}/berkala/{{$item->id}}/{{$item->sk_pns}}" class="text-primary" target="_blank">SK PNS</a>
-                      @endif
-                      
-                      <br/>
-                      @if ($item->sk_pangkat == null)
-                      SK PANGKAT
-                      @else
-                      <a href="/storage/{{$item->nip}}/berkala/{{$item->id}}/{{$item->sk_pangkat}}" class="text-primary" target="_blank">SK PANGKAT</a>
-                      @endif
-                      
-                      <br/>
-                      @if ($item->sk_berkala == null)
-                      SK BERKALA
-                      @else
-                      <a href="/storage/{{$item->nip}}/berkala/{{$item->id}}/{{$item->sk_berkala}}" class="text-primary" target="_blank">SK BERKALA</a>
-                      @endif
-                    </strong>
-                  </td>
-                  <td>{{\Carbon\Carbon::parse($item->updated_at)->format('d-m-Y H:i')}}</td>
-                  <td>{{$item->skpd->nama}} <br/>
-                  Telah Di Validasi Oleh Umpeg
-                  </td>
-                  <td>
-                    @if ($item->status_sk == 1)
-                        
-                    <a href="/kepangkatan/berkala/{{$item->id}}/sk/edit" class="btn btn-xs btn-outline-primary"> <i class="fas fa-edit"></i> EDIT SK BERKALA</a><br/><br/>
-                    <a href="/kepangkatan/berkala/{{$item->id}}/print" class="btn btn-xs btn-outline-danger"> <i class="fas fa-file"></i> CETAK SK BERKALA</a><br/><br/>
-                    <a href="/kepangkatan/berkala/{{$item->id}}/sk/upload" class="btn btn-xs btn-outline-success"> <i class="fas fa-upload"></i> UPLOAD SK DI TTD</a>
-                    @else
-                    <a href="/kepangkatan/berkala/{{$item->id}}/sk" class="btn btn-xs btn-outline-primary"> <i class="fas fa-edit"></i> BUAT SK BERKALA</a><br/><br/>
-                    <a href="#" data-id="{{$item->id}}" class="btn btn-xs kembalikan btn-outline-danger"> <i class="fas fa-hand-paper"></i> TOLAK / KEMBALIKAN</a>
-                    @endif
+                    <a href="/kepangkatan/pangkat/{{$item->id}}/dokumen" class="btn btn-xs btn-outline-primary"> <i class="fas fa-file"></i> List Dokumen</a>
                   </td>
                 </tr>
                 @endforeach
               </tbody>
-          </table> --}}
+          </table>
         </div>
         <!-- /.card-body -->
       </div>

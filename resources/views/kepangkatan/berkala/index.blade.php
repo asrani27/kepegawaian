@@ -235,5 +235,5 @@ $(document).on('click', '.kembalikan', function() {
      $('#berkala_id_upload').val($(this).data('id'));
      $("#modal-upload").modal();
   });
-  </script>
+</script>
 @endpush

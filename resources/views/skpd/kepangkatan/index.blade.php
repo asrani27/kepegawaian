@@ -46,10 +46,20 @@
                     <td>{{$data->firstItem() + $key}}</td>
                     <td>{{$item->pegawai->nip}}<br/>{{$item->pegawai->nama}}<br/>{{$item->pegawai->nm_pangkat}}</td>
                     <td>
-                        Di Proses
+                        
+                        @if ($item->status == null)
+                            <span class="text-danger"><strong>Menunggu Validasi Umpeg SKPD</strong></span>
+                        @else
+                            <span class="text-primary"><strong>Proses Di BKD</strong></span>
+                        @endif
                     </td>
                     <td>
-                        <a href="" class="btn btn-primary">Detail</a>
+                        @if ($item->status == null)
+                            <a href="/admin/kepangkatan/{{$item->id}}" class="btn btn-xs btn-outline-primary"> <i class="fas fa-upload"></i> Upload Dokumen</a>
+                            <a href="/admin/kepangkatan/{{$item->id}}/kirim" class="btn btn-xs btn-outline-danger" onclick="return confirm('Yakin Sudah Selesai Semua?')"> <i class="fas fa-paper-plane"></i> Validasi & Kirim Ke BKD</a>
+                        @else
+                            
+                        @endif    
                     </td>
                 </tr>
             @endforeach
@@ -62,6 +72,31 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-upload" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <form method="post" action="/admin/kepangkatan/upload" enctype="multipart/form-data">
+            @csrf
+        <div class="modal-header bg-gradient-success" style="padding:10px">
+            <h4 class="modal-title text-sm">Upload File</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+        </div>
+  
+        <div class="modal-body">
+            <input type="file" class="form-control"  name="sk_ttd" required>
+            <input type="text" id="pangkat_id" name="pangkat_id">
+            <input type="text" id="nama_field" name="nama_field">
+        </div>
+        
+        <div class="modal-footer justify-content-between">
+            <button type="submit" class="btn btn-block btn-success"><i class="fas fa-paper-plane"></i> Upload</button>
+        </div>
+        </form>
+        </div>
+    </div>
+  </div>
 @endsection
 
 @push('js')

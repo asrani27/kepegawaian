@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Soal;
 use App\Models\Waktu;
+use App\Models\Berkala;
 use App\Models\Jawaban;
 use App\Models\Layanan;
 use App\Models\Pegawai;
@@ -12,6 +13,7 @@ use App\Models\Peserta;
 use App\Models\Kategori;
 use App\Models\Pengajuan;
 use App\Models\BenarSalah;
+use App\Models\Kepangkatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,6 +72,8 @@ class HomeController extends Controller
     public function kepangkatan()
     {
         //Sub Bidang Kepangkatan
-        return view('kepangkatan.home');
+        $pangkat = count(Kepangkatan::get());
+        $berkala = count(Berkala::get());
+        return view('kepangkatan.home',compact('berkala','pangkat'));
     }
 }

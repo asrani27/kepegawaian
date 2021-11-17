@@ -15,4 +15,8 @@ class Pegawai extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function skpd()
+    {
+        return $this->belongsTo(Skpd::class, 'skpd_id');
+    }
 }
