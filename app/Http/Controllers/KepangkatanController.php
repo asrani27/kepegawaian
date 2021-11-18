@@ -24,8 +24,9 @@ class KepangkatanController extends Controller
     
     public function k_dokumen($id)
     {
-        $data =  Kepangkatan::find($id);
-        return view('kepangkatan.pangkat.detail',compact('data'));
+        $pangkat =  Kepangkatan::find($id);
+        $pegawai = $pangkat->pegawai;
+        return view('kepangkatan.pangkat.detail',compact('pangkat','pegawai'));
     }
     
     public function create()
@@ -82,4 +83,6 @@ class KepangkatanController extends Controller
         toastr()->success('Berhasil Di Kirim ke BKD');
         return  redirect('/admin/kepangkatan');
     }
+
+    
 }

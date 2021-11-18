@@ -129,6 +129,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
     Route::prefix('kepangkatan')->group(function () {
         Route::get('berkala', [BerkalaController::class, 'k_index']);
+        Route::get('gantipass', [GantiPassController::class, 'kepangkatan']);
+        Route::post('gantipass', [GantiPassController::class, 'resetKepangkatan']);
         Route::get('pangkat', [KepangkatanController::class, 'k_index']);
         Route::get('pangkat/{id}/dokumen', [KepangkatanController::class, 'k_dokumen']);
 
