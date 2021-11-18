@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use ZipArchive;
+use File;
 use App\Models\Pegawai;
 use App\Models\Kepangkatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Madnest\Madzipper\Facades\Madzipper;
 use Illuminate\Support\Facades\Validator;
 
 class KepangkatanController extends Controller
@@ -13,13 +17,15 @@ class KepangkatanController extends Controller
     public function index()
     {
         $data = Kepangkatan::orderBy('created_at','DESC')->paginate(10);
+        
         return view('skpd.kepangkatan.index',compact('data'));
     }
     
     public function k_index()
     {   
         $data = Kepangkatan::where('status', 1)->orderBy('created_at','DESC')->paginate(10);
-        return view('kepangkatan.pangkat.index',compact('data'));
+        $ditolak = Kepangkatan::where('status',2)->orderBy('created_at','DESC')->paginate(10);
+        return view('kepangkatan.pangkat.index',compact('data','ditolak'));
     }
     
     public function k_dokumen($id)
@@ -84,5 +90,46 @@ class KepangkatanController extends Controller
         return  redirect('/admin/kepangkatan');
     }
 
+    public function k_tolak(Request $req)
+    {
+        Kepangkatan::find($req->pangkat_id)->update([
+            'status' => 2, 
+            'keterangan' => $req->keterangan_tolak,
+        ]);
+
+        toastr()->success('Berhasil Dikembalikan ke SKPD terkait');
+        return back();
+    }
     
+    // public function downloadZip($id)
+    // {
+    //     $pangkat = Kepangkatan::find($id);
+    //     $pegawai = $pangkat->pegawai;
+    //     $files = glob('storage/'. $pegawai->nip.'/pangkat/*');
+    //     Madzipper::make('storage/'. $pegawai->nip.'/download.zip')->add($files)->close();
+
+    //     $name = $pegawai->nip;
+    //     return Storage::download('/public/'. $pegawai->nip.'/download.zip', $name);
+
+    //     toastr()->success('Berhasil Di Download');
+    //     return back();
+    // }
+
+    public function downloadZip($id)
+    {
+        $zip = new ZipArchive;
+            $pangkat = Kepangkatan::find($id);
+            $pegawai = $pangkat->pegawai;
+        $fileName = 'myNewFile.zip';
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
+        {
+            $files = File::files(public_path('storage/'. $pegawai->nip.'/pangkat'));
+            // foreach ($files as $key => $value) {
+            //     $relativeNameInZipFile = basename($value);
+            //     $zip->addFile($value, $relativeNameInZipFile);
+            // }
+            // $zip->close();
+        }
+        return response()->download(public_path($fileName));
+    }
 }

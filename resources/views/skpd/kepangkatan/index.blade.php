@@ -44,17 +44,26 @@
             @foreach ($data as $key => $item)
                     <tr style="font-size:11px; font-family:Arial, Helvetica, sans-serif">
                     <td>{{$data->firstItem() + $key}}</td>
-                    <td>{{$item->pegawai->nip}}<br/>{{$item->pegawai->nama}}<br/>{{$item->pegawai->nm_pangkat}}</td>
+                    <td>{{$item->pegawai->nip}}<br/>{{$item->pegawai->nama}}<br/>{{$item->pegawai->nm_pangkat}}
+                    <br/>
+                    @if ($item->status == 2)
+                    <strong>
+                        <span class="text-danger">Status : Dikembalikan <br/>
+                        {{$item->keterangan}}
+                        </span>
+                    </strong>
+                    @endif
+                    </td>
                     <td>
                         
-                        @if ($item->status == null)
+                        @if ($item->status == null || $item->status == 2)
                             <span class="text-danger"><strong>Menunggu Validasi Umpeg SKPD</strong></span>
                         @else
                             <span class="text-primary"><strong>Proses Di BKD</strong></span>
                         @endif
                     </td>
                     <td>
-                        @if ($item->status == null)
+                        @if ($item->status == null || $item->status == 2)
                             <a href="/admin/kepangkatan/{{$item->id}}" class="btn btn-xs btn-outline-primary"> <i class="fas fa-upload"></i> Upload Dokumen</a>
                             <a href="/admin/kepangkatan/{{$item->id}}/kirim" class="btn btn-xs btn-outline-danger" onclick="return confirm('Yakin Sudah Selesai Semua?')"> <i class="fas fa-paper-plane"></i> Validasi & Kirim Ke BKD</a>
                         @else

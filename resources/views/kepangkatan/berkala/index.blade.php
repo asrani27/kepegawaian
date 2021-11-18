@@ -75,11 +75,11 @@ Beranda
                   <td>
                     @if ($item->sk_ttd == null)
                       @if ($item->status_sk == 1)
-                      <a href="/kepangkatan/berkala/{{$item->id}}/sk/edit" class="btn btn-xs btn-outline-primary"> <i class="fas fa-edit"></i> EDIT SK BERKALA</a><br/><br/>
-                      <a href="/kepangkatan/berkala/{{$item->id}}/print" class="btn btn-xs btn-outline-danger" target="_blank"> <i class="fas fa-file"></i> CETAK SK BERKALA</a><br/><br/>
+                      <a href="/kepangkatan/berkala/{{$item->id}}/sk/edit" class="btn btn-xs btn-outline-primary"> <i class="fas fa-edit"></i> EDIT SK BERKALA</a><br/>
+                      <a href="/kepangkatan/berkala/{{$item->id}}/print" class="btn btn-xs btn-outline-danger" target="_blank"> <i class="fas fa-file"></i> CETAK SK BERKALA</a><br/>
                       <a href="#" data-id="{{$item->id}}" class="btn btn-xs upload btn-outline-success"> <i class="fas fa-upload"></i> UPLOAD SK DI TTD</a>
                       @else
-                      <a href="/kepangkatan/berkala/{{$item->id}}/sk" class="btn btn-xs btn-outline-primary"> <i class="fas fa-edit"></i> BUAT SK BERKALA</a><br/><br/>
+                      <a href="/kepangkatan/berkala/{{$item->id}}/sk" class="btn btn-xs btn-outline-primary"> <i class="fas fa-edit"></i> BUAT SK BERKALA</a><br/>
                       <a href="#" data-id="{{$item->id}}" class="btn btn-xs kembalikan btn-outline-danger"> <i class="fas fa-hand-paper"></i> TOLAK / KEMBALIKAN</a>
                       @endif
                     @else
@@ -128,6 +128,7 @@ Beranda
                       @else
                       <a href="/storage/{{$item->nip}}/berkala/{{$item->id}}/{{$item->sk_cpns}}" class="text-primary" target="_blank">SK CPNS</a>
                       @endif
+
                       <br/>
                       @if ($item->sk_pns == null)
                       SK PNS

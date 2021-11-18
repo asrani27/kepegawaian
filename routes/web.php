@@ -132,7 +132,9 @@ Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
         Route::get('gantipass', [GantiPassController::class, 'kepangkatan']);
         Route::post('gantipass', [GantiPassController::class, 'resetKepangkatan']);
         Route::get('pangkat', [KepangkatanController::class, 'k_index']);
+        Route::post('pangkat/ditolak', [KepangkatanController::class, 'k_tolak']);
         Route::get('pangkat/{id}/dokumen', [KepangkatanController::class, 'k_dokumen']);
+        Route::get('pangkat/{id}/zip', [KepangkatanController::class, 'downloadZip']);
 
         Route::get('berkala/editpejabat', [BerkalaController::class, 'k_editpejabat']);
         Route::post('berkala/editpejabat', [BerkalaController::class, 's_editpejabat']);
