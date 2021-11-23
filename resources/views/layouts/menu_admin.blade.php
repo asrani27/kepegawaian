@@ -43,6 +43,22 @@
     </a>
     
     <li class="nav-item">
+    <a href="/admin/satyalencana" class="nav-link {{Request::is('admin/satyalencana') ? 'active' : ''}}">
+        <i class="nav-icon fas fa-list"></i>
+        <p>
+        Satya Lencana
+        </p>
+    </a>
+    
+    <li class="nav-item">
+    <a href="/admin/pensiun" class="nav-link {{Request::is('admin/pensiun') ? 'active' : ''}}">
+        <i class="nav-icon fas fa-list"></i>
+        <p>
+        Pensiun
+        </p>
+    </a>
+
+    <li class="nav-item">
     <a href="/admin/gantipass" class="nav-link {{Request::is('admin/gantipass') ? 'active' : ''}}">
         <i class="nav-icon fas fa-key"></i>
         <p>

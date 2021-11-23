@@ -12,11 +12,13 @@ use App\Http\Controllers\BerkalaController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PensiunController;
 use App\Http\Controllers\GantiPassController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\KepangkatanController;
 use App\Http\Controllers\PersyaratanController;
 use App\Http\Controllers\AdminPegawaiController;
+use App\Http\Controllers\SatyaLencanaController;
 
 Route::get('/', function(){
     if(Auth::check()){
@@ -26,6 +28,8 @@ Route::get('/', function(){
             return redirect('/admin/home');
         }elseif(Auth::user()->hasRole('kepangkatan')){
             return redirect('/kepangkatan/home');
+        }elseif(Auth::user()->hasRole('pensiun')){
+            return redirect('/pensiun/home');
         }else{
             return redirect('/pegawai/home');
         }
@@ -104,10 +108,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::get('pegawai/sync', [AdminPegawaiController::class, 'sync']);
         Route::get('pegawai/sync/unitkerja', [AdminPegawaiController::class, 'syncUnitKerja']);
         Route::get('pegawai/search', [AdminPegawaiController::class, 'search']);
+
         Route::get('berkala', [BerkalaController::class, 'index']);
         Route::get('berkala/create', [BerkalaController::class, 'create']);
         Route::post('berkala/create', [BerkalaController::class, 'store']);
-
         Route::get('berkala/{id}/upload', [BerkalaController::class, 'upload']);
         Route::post('berkala/{id}/upload', [BerkalaController::class, 'storeUpload']);
         Route::get('berkala/{id}/kirim', [BerkalaController::class, 'validasi_kirim']);
@@ -120,6 +124,21 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::post('kepangkatan/{id}', [KepangkatanController::class, 'uploadSyarat']);
 
         Route::get('pmk', [PmkController::class, 'index']);
+
+        Route::get('satyalencana', [SatyaLencanaController::class, 'index']);
+        Route::get('satyalencana/create', [SatyaLencanaController::class, 'create']);
+        Route::post('satyalencana/create', [SatyaLencanaController::class, 'store']);
+        Route::get('satyalencana/{id}/upload', [SatyaLencanaController::class, 'upload']);
+        Route::post('satyalencana/{id}/upload', [SatyaLencanaController::class, 'storeUpload']);
+        Route::get('satyalencana/{id}/kirim', [SatyaLencanaController::class, 'validasi_kirim']);
+
+        Route::get('pensiun', [PensiunController::class, 'index']);
+        Route::get('pensiun/create', [PensiunController::class, 'create']);
+        Route::post('pensiun/create', [PensiunController::class, 'store']);
+        Route::get('pensiun/{id}', [PensiunController::class, 'detail']);
+        Route::get('pensiun/{id}/kirim', [PensiunController::class, 'validasi_kirim']);
+        Route::post('pensiun/{id}', [PensiunController::class, 'uploadSyarat']);
+
         Route::get('gantipass', [GantiPassController::class, 'admin']);
         Route::post('gantipass', [GantiPassController::class, 'resetadmin']);
     });    
@@ -147,9 +166,21 @@ Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
         Route::get('berkala/{id}/sk/cetak', [BerkalaController::class, 'cetak_sk_berkala']);
     });
 });  
-Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin']], function () {
+
+Route::group(['middleware' => ['auth', 'role:pensiun']], function () {
+    Route::prefix('pensiun')->group(function () {
+        Route::get('satyalencana', [SatyaLencanaController::class, 'p_index']);
+        Route::get('pensiun/{id}/dokumen', [PensiunController::class, 'p_dokumen']);
+
+        Route::get('pensiun', [PensiunController::class, 'p_index']);
+        Route::get('gantipass', [GantiPassController::class, 'pensiun']);
+        Route::post('gantipass', [GantiPassController::class, 'resetPensiun']);
+    });
+});       
+Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin|pensiun']], function () {
     Route::get('/superadmin/home', [HomeController::class, 'superadmin']);
     Route::get('/pegawai/home', [HomeController::class, 'pegawai']);
     Route::get('/kepangkatan/home', [HomeController::class, 'kepangkatan']);
+    Route::get('/pensiun/home', [HomeController::class, 'pensiun']);
     Route::get('/admin/home', [HomeController::class, 'admin']);
 });

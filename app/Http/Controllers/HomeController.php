@@ -9,11 +9,13 @@ use App\Models\Berkala;
 use App\Models\Jawaban;
 use App\Models\Layanan;
 use App\Models\Pegawai;
+use App\Models\Pensiun;
 use App\Models\Peserta;
 use App\Models\Kategori;
 use App\Models\Pengajuan;
 use App\Models\BenarSalah;
 use App\Models\Kepangkatan;
+use App\Models\SatyaLencana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,5 +77,13 @@ class HomeController extends Controller
         $pangkat = count(Kepangkatan::get());
         $berkala = count(Berkala::get());
         return view('kepangkatan.home',compact('berkala','pangkat'));
+    }
+    
+    public function pensiun()
+    {
+        //Sub Bidang Pensiun
+        $SL = count(SatyaLencana::get());
+        $pensiun = count(Pensiun::get());
+        return view('pensiun.home',compact('pensiun','SL'));
     }
 }

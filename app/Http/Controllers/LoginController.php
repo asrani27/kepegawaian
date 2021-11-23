@@ -20,6 +20,8 @@ class LoginController extends Controller
                 return redirect('/admin/home');
             }elseif(Auth::user()->hasRole('kepangkatan')){
                 return redirect('/kepangkatan/home');
+            }elseif(Auth::user()->hasRole('pensiun')){
+                return redirect('/pensiun/home');
             }else{
                 return redirect('/pegawai/home');
             }

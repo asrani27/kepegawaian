@@ -48,6 +48,8 @@
         @include('layouts.menu_admin')
       @elseif (Auth::user()->hasRole('kepangkatan'))
         @include('layouts.menu_kepangkatan')
+        @elseif (Auth::user()->hasRole('pensiun'))
+          @include('layouts.menu_pensiun')
       @else
         @include('layouts.menu_pegawai')
       @endif
