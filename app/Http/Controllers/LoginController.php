@@ -14,17 +14,7 @@ class LoginController extends Controller
     public function login(Request $req)
     {
         if (Auth::attempt(['username' => $req->username, 'password' => $req->password], true)) {
-            if(Auth::user()->hasRole('superadmin')){
-                return redirect('/superadmin/home');
-            }elseif(Auth::user()->hasRole('admin')){
-                return redirect('/admin/home');
-            }elseif(Auth::user()->hasRole('kepangkatan')){
-                return redirect('/kepangkatan/home');
-            }elseif(Auth::user()->hasRole('pensiun')){
-                return redirect('/pensiun/home');
-            }else{
-                return redirect('/pegawai/home');
-            }
+            return redirect(roleUser(Auth::user()));
         } else {
             toastr()->error('Username / Password Tidak Ditemukan');
             $req->flash();

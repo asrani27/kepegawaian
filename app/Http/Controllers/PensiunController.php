@@ -10,21 +10,28 @@ use Illuminate\Support\Facades\Validator;
 
 class PensiunController extends Controller
 {
+    public function user()
+    {
+        return Auth::user();
+    }
+
     public function index()
     {
-        $data = Pensiun::orderBy('created_at','DESC')->paginate(10);
+        $data = Pensiun::where('skpd_id', $this->user()->skpd->id)->orderBy('created_at','DESC')->paginate(10);
         return view('skpd.pensiun.index',compact('data'));
     }
     
     public function create()
     {
-        $pegawai = Pegawai::where('skpd_id',Auth::user()->skpd->id)->get();
+        $pegawai = Pegawai::where('skpd_id',$this->user()->skpd->id)->get();
         return view('skpd.pensiun.create',compact('pegawai'));
     }
     
     public function store(Request $req)
     {
         $attr = $req->all();
+        $attr['skpd_id'] = $this->user()->skpd->id;
+        
         Pensiun::create($attr);
         toastr()->success('Berhasil Di Simpan');
         return redirect('/admin/pensiun');
@@ -83,5 +90,16 @@ class PensiunController extends Controller
         $pensiun =  Pensiun::find($id);
         $pegawai = $pensiun->pegawai;
         return view('pensiun.pensiun.detail',compact('pensiun','pegawai'));
+    }
+
+    public function p_tolak(Request $req)
+    {
+        Pensiun::find($req->pensiun_id)->update([
+            'status' => 2, 
+            'keterangan' => $req->keterangan_tolak,
+        ]);
+
+        toastr()->success('Berhasil Dikembalikan ke SKPD terkait');
+        return back();
     }
 }

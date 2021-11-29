@@ -2,7 +2,7 @@
 <nav class="mt-2">
 <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item">
-    <a href="/admin/home" class="nav-link {{Request::is('/admin/home') ? 'active' : ''}}">
+    <a href="/admin/home" class="nav-link {{Request::is('admin/home') ? 'active' : ''}}">
         <i class="nav-icon fas fa-home"></i>
         <p>
         Beranda
@@ -10,7 +10,7 @@
     </a>
     </li>
     <li class="nav-item">
-    <a href="/admin/pegawai" class="nav-link {{Request::is('admin/pegawai') ? 'active' : ''}}">
+    <a href="/admin/pegawai" class="nav-link {{Request::is('admin/pegawai*') ? 'active' : ''}}">
         <i class="nav-icon fa fa-users"></i>
         <p>
         Pegawai
@@ -18,7 +18,7 @@
     </a>
     </li>
     <li class="nav-item">
-    <a href="/admin/berkala" class="nav-link {{Request::is('admin/berkala') ? 'active' : ''}}">
+    <a href="/admin/berkala" class="nav-link {{Request::is('admin/berkala*') ? 'active' : ''}}">
         <i class="nav-icon fa fa-list"></i>
         <p>
         Berkala
@@ -26,7 +26,7 @@
     </a>
     </li>
     <li class="nav-item">
-    <a href="/admin/kepangkatan" class="nav-link {{Request::is('admin/kepangkatan') ? 'active' : ''}}">
+    <a href="/admin/kepangkatan" class="nav-link {{Request::is('admin/kepangkatan*') ? 'active' : ''}}">
         <i class="nav-icon fas fa-list"></i>
         <p>
         Kepangkatan
@@ -35,7 +35,7 @@
     </li>
     
     <li class="nav-item">
-    <a href="/admin/pmk" class="nav-link {{Request::is('admin/pmk') ? 'active' : ''}}">
+    <a href="/admin/pmk" class="nav-link {{Request::is('admin/pmk*') ? 'active' : ''}}">
         <i class="nav-icon fas fa-list"></i>
         <p>
         PMK
@@ -43,7 +43,7 @@
     </a>
     
     <li class="nav-item">
-    <a href="/admin/satyalencana" class="nav-link {{Request::is('admin/satyalencana') ? 'active' : ''}}">
+    <a href="/admin/satyalencana" class="nav-link {{Request::is('admin/satyalencana*') ? 'active' : ''}}">
         <i class="nav-icon fas fa-list"></i>
         <p>
         Satya Lencana
@@ -51,10 +51,34 @@
     </a>
     
     <li class="nav-item">
-    <a href="/admin/pensiun" class="nav-link {{Request::is('admin/pensiun') ? 'active' : ''}}">
+    <a href="/admin/pensiun" class="nav-link {{Request::is('admin/pensiun*') ? 'active' : ''}}">
         <i class="nav-icon fas fa-list"></i>
         <p>
         Pensiun
+        </p>
+    </a>
+
+    <li class="nav-item">
+    <a href="/admin/karpeg" class="nav-link {{Request::is('admin/karpeg*') ? 'active' : ''}}">
+        <i class="nav-icon fas fa-list"></i>
+        <p>
+        Karpeg
+        </p>
+    </a>
+    
+    <li class="nav-item">
+    <a href="/admin/karsu" class="nav-link {{Request::is('admin/karsu*') ? 'active' : ''}}">
+        <i class="nav-icon fas fa-list"></i>
+        <p>
+        Karsu
+        </p>
+    </a>
+    
+    <li class="nav-item">
+    <a href="/admin/karis" class="nav-link {{Request::is('admin/karis*') ? 'active' : ''}}">
+        <i class="nav-icon fas fa-list"></i>
+        <p>
+        Karis
         </p>
     </a>
 

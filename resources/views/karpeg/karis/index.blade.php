@@ -5,7 +5,7 @@
 
 @endpush
 @section('title')
-Pensiun
+Data KARIS
 @endsection
 @section('content')
 
@@ -13,7 +13,7 @@ Pensiun
     <div class="col-12">
       <div class="card">
         <div class="card-header bg-gradient-secondary">
-          <h3 class="card-title">Daftar Pengajuan Pensiun</h3>
+          <h3 class="card-title">Daftar Pengajuan KARIS</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
@@ -21,7 +21,6 @@ Pensiun
               <thead>
                   <th>No</th>
                   <th>NIP/Nama/Jabatan</th>
-                  <th>Jenis</th>
                   <th>Tanggal Di Buat</th>
                   <th>SKPD</th>
                   <th>Aksi</th>
@@ -31,28 +30,20 @@ Pensiun
                 <tr style="font-size:10px; font-family:Arial, Helvetica, sans-serif">
                   <td>{{$data->firstItem() + $key}}</td>
                   <td>{{$item->pegawai->nip}} <br/>{{$item->pegawai->nama}}<br/>{{$item->pegawai->nm_pangkat}} / {{$item->pegawai->pol_pangkat}}</td>
-                  <td>
-                    @if ($item->jenis == 1)
-                        APS
-                    @elseif($item->jenis == 2)
-                        BUP
-                    @elseif($item->jenis == 3)
-                        UZUR/SAKIT
-                    @elseif($item->jenis == 4)
-                        JANDA/DUDA/YATIM
-                    @endif
-                  </td>
                   <td>{{\Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i')}}</td>
                   <td>{{$item->pegawai->skpd}} <br/>
                     Telah Di Validasi Oleh Umpeg
                   </td>
                   <td>
+                    @if ($item->status == 3)
+                        <span class="text-success text-bold">KARIS SELESAI</span>
+                    @else
+                    <a href="/karpeg/karis/{{$item->id}}/dokumen" class="btn btn-xs btn-outline-primary"> <i class="fas fa-file"></i> LIHAT DOKUMEN</a><br/>
                     
-                    <a href="/pensiun/pensiun/{{$item->id}}/dokumen" class="btn btn-xs btn-outline-primary"> <i class="fas fa-file"></i> LIHAT DOKUMEN</a><br/>
-                    
-                    <a href="#" data-id="{{$item->id}}" class="btn btn-xs kembalikan btn-outline-danger"> <i class="fas fa-hand-paper"></i> TOLAK / KEMBALIKAN</a><br/>
+                    <a href="#" data-id="{{$item->id}}" class="btn btn-xs kembalikan btn-outline-danger"> <i class="fas fa-hand-paper"></i> BERKAS TIDAK LENGKAP</a><br/>
 
-                    {{-- <a href="/kepangkatan/pangkat/{{$item->id}}/zip" class="btn btn-xs btn-outline-success"> <i class="fas fa-download"></i> DOWNLOAD DOKUMEN</a> --}}
+                    <a href="/karpeg/karis/{{$item->id}}/selesai" class="btn btn-xs btn-outline-success" onclick="return confirm('KONFIRMASI KARIS SELESAI?')"> <i class="fas fa-check"></i> KARIS SELESAI</a>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -69,7 +60,7 @@ Pensiun
 <div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-        <form method="post" action="/pensiun/pensiun/ditolak" enctype="multipart/form-data">
+        <form method="post" action="/karpeg/karis/ditolak" enctype="multipart/form-data">
             @csrf
         <div class="modal-header bg-gradient-danger" style="padding:10px">
             <h4 class="modal-title text-sm">Isi Alasan / Keterangan</h4>
@@ -80,7 +71,7 @@ Pensiun
 
         <div class="modal-body">
             <textarea name="keterangan_tolak" class="form-control"></textarea>
-            <input type="hidden" id="pensiun_id" name="pensiun_id">
+            <input type="hidden" id="karis_id" name="karis_id">
         </div>
         
         <div class="modal-footer justify-content-between">
@@ -95,7 +86,7 @@ Pensiun
 @push('js')
 <script>
 $(document).on('click', '.kembalikan', function() {
-   $('#pensiun_id').val($(this).data('id'));
+   $('#karis_id').val($(this).data('id'));
    $("#modal-default").modal();
 });
 </script>

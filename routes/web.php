@@ -6,7 +6,10 @@ use App\Http\Controllers\PmkController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SkpdController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KarisController;
+use App\Http\Controllers\KarsuController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\KarpegController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\BerkalaController;
 use App\Http\Controllers\BiodataController;
@@ -22,17 +25,7 @@ use App\Http\Controllers\SatyaLencanaController;
 
 Route::get('/', function(){
     if(Auth::check()){
-        if(Auth::user()->hasRole('superadmin')){
-            return redirect('/superadmin/home');
-        }elseif(Auth::user()->hasRole('admin')){
-            return redirect('/admin/home');
-        }elseif(Auth::user()->hasRole('kepangkatan')){
-            return redirect('/kepangkatan/home');
-        }elseif(Auth::user()->hasRole('pensiun')){
-            return redirect('/pensiun/home');
-        }else{
-            return redirect('/pegawai/home');
-        }
+        return redirect(roleUser(Auth::user()));
     }
     return view('login');
 });
@@ -120,8 +113,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::get('kepangkatan/create', [KepangkatanController::class, 'create']);
         Route::post('kepangkatan/create', [KepangkatanController::class, 'store']);
         Route::get('kepangkatan/{id}', [KepangkatanController::class, 'detail']);
-        Route::get('kepangkatan/{id}/kirim', [KepangkatanController::class, 'validasi_kirim']);
         Route::post('kepangkatan/{id}', [KepangkatanController::class, 'uploadSyarat']);
+        Route::get('kepangkatan/{id}/kirim', [KepangkatanController::class, 'validasi_kirim']);
 
         Route::get('pmk', [PmkController::class, 'index']);
 
@@ -138,6 +131,30 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::get('pensiun/{id}', [PensiunController::class, 'detail']);
         Route::get('pensiun/{id}/kirim', [PensiunController::class, 'validasi_kirim']);
         Route::post('pensiun/{id}', [PensiunController::class, 'uploadSyarat']);
+        
+        Route::get('karpeg', [KarpegController::class, 'index']);
+        Route::get('karpeg/create', [KarpegController::class, 'create']);
+        Route::post('karpeg/create', [KarpegController::class, 'store']);
+        Route::get('karpeg/{id}', [KarpegController::class, 'detail']);
+        Route::post('karpeg/{id}', [KarpegController::class, 'uploadSyarat']);
+        Route::get('karpeg/{id}/kirim', [KarpegController::class, 'validasi_kirim']);
+        Route::get('karpeg/{id}/delete', [KarpegController::class, 'delete']);
+        
+        Route::get('karsu', [KarsuController::class, 'index']);
+        Route::get('karsu/create', [KarsuController::class, 'create']);
+        Route::post('karsu/create', [KarsuController::class, 'store']);
+        Route::get('karsu/{id}', [KarsuController::class, 'detail']);
+        Route::post('karsu/{id}', [KarsuController::class, 'uploadSyarat']);
+        Route::get('karsu/{id}/kirim', [KarsuController::class, 'validasi_kirim']);
+        Route::get('karsu/{id}/delete', [KarsuController::class, 'delete']);
+        
+        Route::get('karis', [KarisController::class, 'index']);
+        Route::get('karis/create', [KarisController::class, 'create']);
+        Route::post('karis/create', [KarisController::class, 'store']);
+        Route::get('karis/{id}', [KarisController::class, 'detail']);
+        Route::post('karis/{id}', [KarisController::class, 'uploadSyarat']);
+        Route::get('karis/{id}/kirim', [KarisController::class, 'validasi_kirim']);
+        Route::get('karis/{id}/delete', [KarisController::class, 'delete']);
 
         Route::get('gantipass', [GantiPassController::class, 'admin']);
         Route::post('gantipass', [GantiPassController::class, 'resetadmin']);
@@ -173,14 +190,39 @@ Route::group(['middleware' => ['auth', 'role:pensiun']], function () {
         Route::get('pensiun/{id}/dokumen', [PensiunController::class, 'p_dokumen']);
 
         Route::get('pensiun', [PensiunController::class, 'p_index']);
+        Route::post('pensiun/ditolak', [PensiunController::class, 'p_tolak']);
         Route::get('gantipass', [GantiPassController::class, 'pensiun']);
         Route::post('gantipass', [GantiPassController::class, 'resetPensiun']);
     });
-});       
-Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin|pensiun']], function () {
+});    
+
+Route::group(['middleware' => ['auth', 'role:karpeg']], function () {
+    Route::prefix('karpeg')->group(function () {
+        Route::get('karpeg', [KarpegController::class, 'k_index']);
+        Route::post('karpeg/ditolak', [KarpegController::class, 'k_tolak']);
+        Route::get('karpeg/{id}/dokumen', [KarpegController::class, 'k_dokumen']);
+        Route::get('karpeg/{id}/selesai', [KarpegController::class, 'k_selesai']);
+
+        Route::get('karis', [KarisController::class, 'k_index']);
+        Route::post('karis/ditolak', [KarisController::class, 'k_tolak']);
+        Route::get('karis/{id}/dokumen', [KarisController::class, 'k_dokumen']);
+        Route::get('karis/{id}/selesai', [KarisController::class, 'k_selesai']);
+
+        Route::get('karsu', [KarsuController::class, 'k_index']);
+        Route::post('karsu/ditolak', [KarsuController::class, 'k_tolak']);
+        Route::get('karsu/{id}/dokumen', [KarsuController::class, 'k_dokumen']);
+        Route::get('karsu/{id}/selesai', [KarsuController::class, 'k_selesai']);
+        
+        Route::get('gantipass', [GantiPassController::class, 'karpeg']);
+        Route::post('gantipass', [GantiPassController::class, 'resetKarpeg']);
+    });
+});    
+
+Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin|pensiun|karpeg']], function () {
     Route::get('/superadmin/home', [HomeController::class, 'superadmin']);
     Route::get('/pegawai/home', [HomeController::class, 'pegawai']);
     Route::get('/kepangkatan/home', [HomeController::class, 'kepangkatan']);
     Route::get('/pensiun/home', [HomeController::class, 'pensiun']);
+    Route::get('/karpeg/home', [HomeController::class, 'karpeg']);
     Route::get('/admin/home', [HomeController::class, 'admin']);
 });

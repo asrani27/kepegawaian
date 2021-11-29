@@ -86,4 +86,13 @@ class HomeController extends Controller
         $pensiun = count(Pensiun::get());
         return view('pensiun.home',compact('pensiun','SL'));
     }
+
+    public function karpeg()
+    {
+        //Sub bidang data dan informasi, mengurus karpeg, karis dan karsu
+        $karpeg = count(Karpeg::get());
+        $karsu = count(Karsu::get());
+        $karis = count(Karis::get());
+        return view('karpeg.home',compact('karpeg', 'karsu', 'karis'));
+    }
 }

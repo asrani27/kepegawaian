@@ -14,9 +14,14 @@ use Illuminate\Support\Facades\Validator;
 
 class KepangkatanController extends Controller
 {
+    public function user()
+    {
+        return Auth::user();
+    }
+
     public function index()
     {
-        $data = Kepangkatan::orderBy('created_at','DESC')->paginate(10);
+        $data = Kepangkatan::where('skpd_id', $this->user()->skpd->id)->orderBy('created_at','DESC')->paginate(10);
         
         return view('skpd.kepangkatan.index',compact('data'));
     }
@@ -37,13 +42,15 @@ class KepangkatanController extends Controller
     
     public function create()
     {
-        $pegawai = Pegawai::where('skpd_id',Auth::user()->skpd->id)->get();
+        $pegawai = Pegawai::where('skpd_id',$this->user()->skpd->id)->get();
         return view('skpd.kepangkatan.create',compact('pegawai'));
     }
     
     public function store(Request $req)
     {
         $attr = $req->all();
+        $attr['skpd_id'] = $this->user()->skpd->id;
+        
         Kepangkatan::create($attr);
         toastr()->success('Berhasil Di Simpan');
         return redirect('/admin/kepangkatan');

@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\Validator;
 
 class SatyaLencanaController extends Controller
 {
+    public function user()
+    {
+        return Auth::user();
+    }
+
+    //Function untuk umpeg SKPD
     public function index()
     {
-        $data = SatyaLencana::orderBy('created_at','DESC')->paginate(10);        
+        $data = SatyaLencana::where('skpd_id', $this->user()->skpd->id)->orderBy('created_at','DESC')->paginate(10);        
         return view('skpd.satyalencana.index',compact('data'));
     }
 
@@ -25,6 +31,8 @@ class SatyaLencanaController extends Controller
     public function store(Request $req)
     {
         $attr = $req->all();
+        $attr['skpd_id'] = $this->user()->skpd->id;
+
         SatyaLencana::create($attr);
         toastr()->success('Berhasil Di Simpan');
         return redirect('/admin/satyalencana');
@@ -52,10 +60,10 @@ class SatyaLencanaController extends Controller
         
         $SL = SatyaLencana::find($id);
         
-        $sk_cpns = $request->sk_cpns == null ? $SL->sk_cpns : 'SKCPNS_'.$SL->pegawai->nip.'.pdf';
-        $sk_pns  = $request->sk_pns == null ? $SL->sk_pns : 'SKPNS_'.$SL->pegawai->nip.'.pdf';
+        $sk_cpns    = $request->sk_cpns == null ? $SL->sk_cpns : 'SKCPNS_'.$SL->pegawai->nip.'.pdf';
+        $sk_pns     = $request->sk_pns == null ? $SL->sk_pns : 'SKPNS_'.$SL->pegawai->nip.'.pdf';
         $sk_jabatan = $request->sk_jabatan == null ? $SL->sk_jabatan : 'SKJABATAN_'.$SL->pegawai->nip.'.pdf';
-        $skp1thn = $request->skp1thn == null ? $SL->skp1thn : 'SKP1THN_'.$SL->pegawai->nip.'.pdf';
+        $skp1thn    = $request->skp1thn == null ? $SL->skp1thn : 'SKP1THN_'.$SL->pegawai->nip.'.pdf';
         
         $SL->update([
             'sk_cpns' => $sk_cpns,
@@ -95,6 +103,7 @@ class SatyaLencanaController extends Controller
         return back();
     }
 
+    //Function untuk admin sub bidang pensiun dan satya lencana
     public function p_index()
     {
         $data = SatyaLencana::where('status', null)->where('validasi_skpd', 1)->orderBy('created_at','DESC')->paginate(10);
