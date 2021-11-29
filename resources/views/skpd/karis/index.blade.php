@@ -60,8 +60,10 @@
                         
                         @if ($item->status == null || $item->status == 2)
                             <span class="text-danger"><strong>Menunggu Validasi Umpeg SKPD</strong></span>
-                        @else
+                        @elseif($item->status == 1)
                             <span class="text-primary"><strong>Proses Di BKD</strong></span>
+                        @else
+                            <span class="text-success"><strong>KARIS SELESAI</strong><br/>Silahkan Ambil Ke BKD</span>
                         @endif
                     </td>
                     <td>

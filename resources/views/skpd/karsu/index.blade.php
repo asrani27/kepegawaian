@@ -63,7 +63,7 @@
                         @elseif($item->status == 1)
                             <span class="text-primary"><strong>Proses Di BKD</strong></span>
                         @else
-                            <span class="text-success"><strong>KARPEG SELESAI</strong><br/>Silahkan Ambil Ke BKD</span>
+                            <span class="text-success"><strong>KARSU SELESAI</strong><br/>Silahkan Ambil Ke BKD</span>
                         @endif
                     </td>
                     <td>
