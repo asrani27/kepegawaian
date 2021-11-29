@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Soal;
+use App\Models\Karis;
+use App\Models\Karsu;
 use App\Models\Waktu;
+use App\Models\Karpeg;
 use App\Models\Berkala;
 use App\Models\Jawaban;
 use App\Models\Layanan;
