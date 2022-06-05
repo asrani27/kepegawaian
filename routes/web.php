@@ -10,33 +10,39 @@ use App\Http\Controllers\KarisController;
 use App\Http\Controllers\KarsuController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KarpegController;
+use App\Http\Controllers\MAgamaController;
+use App\Http\Controllers\MJenisController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\BerkalaController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\LayananController;
+use App\Http\Controllers\MEselonController;
+use App\Http\Controllers\MGenderController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PensiunController;
+use App\Http\Controllers\MJabatanController;
 use App\Http\Controllers\GantiPassController;
+use App\Http\Controllers\MGoldarahController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\KepangkatanController;
 use App\Http\Controllers\PersyaratanController;
 use App\Http\Controllers\AdminPegawaiController;
 use App\Http\Controllers\SatyaLencanaController;
 
-Route::get('/', function(){
-    if(Auth::check()){
+Route::get('/', function () {
+    if (Auth::check()) {
         return redirect(roleUser(Auth::user()));
     }
     return view('login');
 });
 
-Route::get('/logout', function(){
+Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 });
 
-Route::get('/login', function(){
-    if(Auth::check()){
+Route::get('/login', function () {
+    if (Auth::check()) {
         return redirect('/');
     }
     return view('login');
@@ -54,7 +60,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
         Route::get('/pegawai/account', [PegawaiController::class, 'account']);
         Route::get('/pegawai/search', [PegawaiController::class, 'search']);
         Route::post('/pegawai/import', [PegawaiController::class, 'import']);
-        
+
         Route::get('/pegawai/{id}/detail', [PegawaiController::class, 'detail']);
         Route::get('/pegawai/{id}/detail/edit_profil', [PegawaiController::class, 'editProfil']);
         Route::get('/pegawai/{id}/pasangan', [PegawaiController::class, 'pasangan']);
@@ -66,7 +72,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
         Route::get('/pegawai/import/{id}/delete', [PegawaiController::class, 'importDelete']);
         Route::get('/pegawai/{id}/akun', [PegawaiController::class, 'akun']);
         Route::get('/pegawai/{id}/reset', [PegawaiController::class, 'pass']);
-        
+
         Route::get('/skpd/{id}/akun', [SkpdController::class, 'akun']);
         Route::get('/skpd/{id}/reset', [SkpdController::class, 'reset']);
 
@@ -92,7 +98,7 @@ Route::group(['middleware' => ['auth', 'role:pegawai']], function () {
         Route::resource('biodata', BiodataController::class);
         Route::get('upload/{id}/delete', [UploadController::class, 'deleteFile']);
         Route::resource('upload', UploadController::class);
-    });    
+    });
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
@@ -108,7 +114,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::get('berkala/{id}/upload', [BerkalaController::class, 'upload']);
         Route::post('berkala/{id}/upload', [BerkalaController::class, 'storeUpload']);
         Route::get('berkala/{id}/kirim', [BerkalaController::class, 'validasi_kirim']);
-        
+
         Route::get('kepangkatan', [KepangkatanController::class, 'index']);
         Route::get('kepangkatan/create', [KepangkatanController::class, 'create']);
         Route::post('kepangkatan/create', [KepangkatanController::class, 'store']);
@@ -131,7 +137,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::get('pensiun/{id}', [PensiunController::class, 'detail']);
         Route::get('pensiun/{id}/kirim', [PensiunController::class, 'validasi_kirim']);
         Route::post('pensiun/{id}', [PensiunController::class, 'uploadSyarat']);
-        
+
         Route::get('karpeg', [KarpegController::class, 'index']);
         Route::get('karpeg/create', [KarpegController::class, 'create']);
         Route::post('karpeg/create', [KarpegController::class, 'store']);
@@ -139,7 +145,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::post('karpeg/{id}', [KarpegController::class, 'uploadSyarat']);
         Route::get('karpeg/{id}/kirim', [KarpegController::class, 'validasi_kirim']);
         Route::get('karpeg/{id}/delete', [KarpegController::class, 'delete']);
-        
+
         Route::get('karsu', [KarsuController::class, 'index']);
         Route::get('karsu/create', [KarsuController::class, 'create']);
         Route::post('karsu/create', [KarsuController::class, 'store']);
@@ -147,7 +153,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::post('karsu/{id}', [KarsuController::class, 'uploadSyarat']);
         Route::get('karsu/{id}/kirim', [KarsuController::class, 'validasi_kirim']);
         Route::get('karsu/{id}/delete', [KarsuController::class, 'delete']);
-        
+
         Route::get('karis', [KarisController::class, 'index']);
         Route::get('karis/create', [KarisController::class, 'create']);
         Route::post('karis/create', [KarisController::class, 'store']);
@@ -158,7 +164,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
         Route::get('gantipass', [GantiPassController::class, 'admin']);
         Route::post('gantipass', [GantiPassController::class, 'resetadmin']);
-    });    
+    });
 });
 
 
@@ -182,7 +188,7 @@ Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
         Route::post('berkala/{id}/sk', [BerkalaController::class, 'simpan_sk_berkala']);
         Route::get('berkala/{id}/sk/cetak', [BerkalaController::class, 'cetak_sk_berkala']);
     });
-});  
+});
 
 Route::group(['middleware' => ['auth', 'role:pensiun']], function () {
     Route::prefix('pensiun')->group(function () {
@@ -194,7 +200,7 @@ Route::group(['middleware' => ['auth', 'role:pensiun']], function () {
         Route::get('gantipass', [GantiPassController::class, 'pensiun']);
         Route::post('gantipass', [GantiPassController::class, 'resetPensiun']);
     });
-});    
+});
 
 Route::group(['middleware' => ['auth', 'role:karpeg']], function () {
     Route::prefix('karpeg')->group(function () {
@@ -212,17 +218,57 @@ Route::group(['middleware' => ['auth', 'role:karpeg']], function () {
         Route::post('karsu/ditolak', [KarsuController::class, 'k_tolak']);
         Route::get('karsu/{id}/dokumen', [KarsuController::class, 'k_dokumen']);
         Route::get('karsu/{id}/selesai', [KarsuController::class, 'k_selesai']);
-        
+
         Route::get('gantipass', [GantiPassController::class, 'karpeg']);
         Route::post('gantipass', [GantiPassController::class, 'resetKarpeg']);
     });
-});    
+});
 
-Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin|pensiun|karpeg']], function () {
+Route::group(['middleware' => ['auth', 'role:kepegawaian']], function () {
+    Route::prefix('kepegawaian')->group(function () {
+
+        Route::get('data/agama', [MAgamaController::class, 'index']);
+        Route::post('data/agama', [MAgamaController::class, 'store']);
+        Route::post('data/agama/edit', [MAgamaController::class, 'update']);
+        Route::get('data/agama/{id}/delete', [MAgamaController::class, 'delete']);
+
+        Route::get('data/eselon', [MEselonController::class, 'index']);
+        Route::post('data/eselon', [MEselonController::class, 'store']);
+        Route::post('data/eselon/edit', [MEselonController::class, 'update']);
+        Route::get('data/eselon/{id}/delete', [MEselonController::class, 'delete']);
+
+        Route::get('data/gender', [MGenderController::class, 'index']);
+        Route::post('data/gender', [MGenderController::class, 'store']);
+        Route::post('data/gender/edit', [MGenderController::class, 'update']);
+        Route::get('data/gender/{id}/delete', [MGenderController::class, 'delete']);
+
+        Route::get('data/goldarah', [MGoldarahController::class, 'index']);
+        Route::post('data/goldarah', [MGoldarahController::class, 'store']);
+        Route::post('data/goldarah/edit', [MGoldarahController::class, 'update']);
+        Route::get('data/goldarah/{id}/delete', [MGoldarahController::class, 'delete']);
+
+        Route::get('data/jabatan', [MJabatanController::class, 'index']);
+        Route::post('data/jabatan', [MJabatanController::class, 'store']);
+        Route::post('data/jabatan/edit', [MJabatanController::class, 'update']);
+        Route::get('data/jabatan/{id}/delete', [MJabatanController::class, 'delete']);
+
+        Route::get('data/jenis', [MJenisController::class, 'index']);
+        Route::post('data/jenis', [MJenisController::class, 'store']);
+        Route::post('data/jenis/edit', [MJenisController::class, 'update']);
+        Route::get('data/jenis/{id}/delete', [MJenisController::class, 'delete']);
+
+        Route::get('gantipass', [GantiPassController::class, 'kepegawaian']);
+        Route::post('gantipass', [GantiPassController::class, 'resetKepegawaian']);
+    });
+});
+
+Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin|pensiun|karpeg|disiplin|kepegawaian']], function () {
     Route::get('/superadmin/home', [HomeController::class, 'superadmin']);
     Route::get('/pegawai/home', [HomeController::class, 'pegawai']);
     Route::get('/kepangkatan/home', [HomeController::class, 'kepangkatan']);
     Route::get('/pensiun/home', [HomeController::class, 'pensiun']);
     Route::get('/karpeg/home', [HomeController::class, 'karpeg']);
     Route::get('/admin/home', [HomeController::class, 'admin']);
+    Route::get('/disiplin/home', [HomeController::class, 'disiplin']);
+    Route::get('/kepegawaian/home', [HomeController::class, 'kepegawaian']);
 });

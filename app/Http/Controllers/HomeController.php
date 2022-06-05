@@ -31,12 +31,12 @@ class HomeController extends Controller
 
     public function superadmin()
     {
-        $pengajuan = Pengajuan::orderBy('status','ASC')->paginate(10);
+        $pengajuan = Pengajuan::orderBy('status', 'ASC')->paginate(10);
         $t_pegawai = count(Pegawai::all());
         $t_pns = count(Pegawai::where('status_pegawai', 'PNS')->get());
         $t_cpns = count(Pegawai::where('status_pegawai', 'CPNS')->get());
-        
-        return view('superadmin.home',compact('pengajuan','t_pegawai','t_pns','t_cpns'));
+
+        return view('superadmin.home', compact('pengajuan', 't_pegawai', 't_pns', 't_cpns'));
     }
 
     public function gantipass()
@@ -46,32 +46,32 @@ class HomeController extends Controller
 
     public function resetpass(Request $req)
     {
-        if($req->password1 == $req->password2){
+        if ($req->password1 == $req->password2) {
             $u = Auth::user();
             $u->password = bcrypt($req->password1);
             $u->save();
-    
+
             Auth::logout();
             toastr()->success('Berhasil Di Ubah, Login Dengan Password Baru');
             return redirect('/');
-        }else{
+        } else {
             toastr()->error('Password Tidak Sama');
             return back();
         }
     }
 
-    public function soal()
-    {
-        return Soal::get();
-    }
+    // public function soal()
+    // {
+    //     return Soal::get();
+    // }
 
     public function pegawai()
-    {    
+    {
         $page = 'profil';
         $pegawai = Auth::user()->pegawai;
         $layanan = Layanan::get();
         $pengajuan = Pengajuan::where('pegawai_id', $pegawai->id)->get();
-        return view('pegawai.home',compact('page','pegawai','layanan','pengajuan'));
+        return view('pegawai.home', compact('page', 'pegawai', 'layanan', 'pengajuan'));
     }
 
     public function kepangkatan()
@@ -79,15 +79,15 @@ class HomeController extends Controller
         //Sub Bidang Kepangkatan
         $pangkat = count(Kepangkatan::get());
         $berkala = count(Berkala::get());
-        return view('kepangkatan.home',compact('berkala','pangkat'));
+        return view('kepangkatan.home', compact('berkala', 'pangkat'));
     }
-    
+
     public function pensiun()
     {
         //Sub Bidang Pensiun
         $SL = count(SatyaLencana::get());
         $pensiun = count(Pensiun::get());
-        return view('pensiun.home',compact('pensiun','SL'));
+        return view('pensiun.home', compact('pensiun', 'SL'));
     }
 
     public function karpeg()
@@ -96,6 +96,16 @@ class HomeController extends Controller
         $karpeg = count(Karpeg::get());
         $karsu = count(Karsu::get());
         $karis = count(Karis::get());
-        return view('karpeg.home',compact('karpeg', 'karsu', 'karis'));
+        return view('karpeg.home', compact('karpeg', 'karsu', 'karis'));
+    }
+
+    public function disiplin()
+    {
+        return view('disiplin.home');
+    }
+
+    public function kepegawaian()
+    {
+        return view('kepegawaian.home');
     }
 }
