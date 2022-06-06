@@ -59,6 +59,137 @@
                         <p>Jenis</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/pangkat"
+                        class="nav-link {{Request::is('kepegawaian/data/pangkat') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Pangkat</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/kawin"
+                        class="nav-link {{Request::is('kepegawaian/data/kawin') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Status Kawin</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/kedudukan"
+                        class="nav-link {{Request::is('kepegawaian/data/kedudukan') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Kedudukan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/skpd"
+                        class="nav-link {{Request::is('kepegawaian/data/skpd') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>SKPD</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/pendidikan"
+                        class="nav-link {{Request::is('kepegawaian/data/pendidikan') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Pendidikan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/status"
+                        class="nav-link {{Request::is('kepegawaian/data/status') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Status Pegawai</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/unit1"
+                        class="nav-link {{Request::is('kepegawaian/data/unit1') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Unit Satuan 1</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/unit2"
+                        class="nav-link {{Request::is('kepegawaian/data/unit2') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Unit Satuan 2</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/unit3"
+                        class="nav-link {{Request::is('kepegawaian/data/unit3') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Unit Satuan 3</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/keljab"
+                        class="nav-link {{Request::is('kepegawaian/data/keljab') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>KELJAB</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/insjab"
+                        class="nav-link {{Request::is('kepegawaian/data/insjab') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>INSJAB</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/data/latjab"
+                        class="nav-link {{Request::is('kepegawaian/data/latjab') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>LATJAB</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item has-treeview {{Request::is('kepegawaian/kelola*') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('kepegawaian/kelola*') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                    Kelola
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="/kepegawaian/kelola/jenjab"
+                        class="nav-link {{Request::is('kepegawaian/kelola/jenjab') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>JENJAB</p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
+                    <a href="/kepegawaian/kelola/leveljab"
+                        class="nav-link {{Request::is('kepegawaian/kelola/leveljab') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>LEVELJAB</p>
+                    </a>
+                </li> --}}
+                <li class="nav-item">
+                    <a href="/kepegawaian/kelola/unitkerja"
+                        class="nav-link {{Request::is('kepegawaian/kelola/unitkerja') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>UNIT KERJA</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/kelola/pegawai"
+                        class="nav-link {{Request::is('kepegawaian/kelola/pegawai') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>PEGAWAI</p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
+                    <a href="/kepegawaian/kelola/organisasi"
+                        class="nav-link {{Request::is('kepegawaian/kelola/organisasi') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ORGANISASI</p>
+                    </a>
+                </li> --}}
             </ul>
         </li>
         <li class="nav-item">

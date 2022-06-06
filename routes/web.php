@@ -9,25 +9,44 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KarisController;
 use App\Http\Controllers\KarsuController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MSkpdController;
 use App\Http\Controllers\KarpegController;
 use App\Http\Controllers\MAgamaController;
 use App\Http\Controllers\MJenisController;
+use App\Http\Controllers\MKawinController;
+use App\Http\Controllers\MUnit1Controller;
+use App\Http\Controllers\MUnit2Controller;
+use App\Http\Controllers\MUnit3Controller;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\BerkalaController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\MEselonController;
 use App\Http\Controllers\MGenderController;
+use App\Http\Controllers\MInsjabController;
+use App\Http\Controllers\MJenjabController;
+use App\Http\Controllers\MKeljabController;
+use App\Http\Controllers\MLatjabController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PensiunController;
 use App\Http\Controllers\MJabatanController;
+use App\Http\Controllers\MPangkatController;
+use App\Http\Controllers\MPegawaiController;
 use App\Http\Controllers\GantiPassController;
 use App\Http\Controllers\MGoldarahController;
+use App\Http\Controllers\MLeveljabController;
 use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\MKedudukanController;
+use App\Http\Controllers\MUnitkerjaController;
 use App\Http\Controllers\KepangkatanController;
+use App\Http\Controllers\MPendidikanController;
 use App\Http\Controllers\PersyaratanController;
 use App\Http\Controllers\AdminPegawaiController;
 use App\Http\Controllers\SatyaLencanaController;
+use App\Http\Controllers\MJenisDisiplinController;
+use App\Http\Controllers\MStatusPegawaiController;
+use App\Http\Controllers\KHukumanDisiplinController;
+use App\Http\Controllers\MKategoriDisiplinController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -202,6 +221,29 @@ Route::group(['middleware' => ['auth', 'role:pensiun']], function () {
     });
 });
 
+Route::group(['middleware' => ['auth', 'role:disiplin']], function () {
+    Route::prefix('disiplin')->group(function () {
+        Route::get('kategori', [MKategoriDisiplinController::class, 'index']);
+        Route::post('kategori', [MKategoriDisiplinController::class, 'store']);
+        Route::post('kategori/edit', [MKategoriDisiplinController::class, 'update']);
+        Route::get('kategori/{id}/delete', [MKategoriDisiplinController::class, 'delete']);
+
+        //kelola data
+        Route::get('jenis', [MJenisDisiplinController::class, 'index']);
+        Route::get('jenis/add', [MJenisDisiplinController::class, 'create']);
+        Route::post('jenis/add', [MJenisDisiplinController::class, 'store']);
+        Route::get('jenis/{id}/edit', [MJenisDisiplinController::class, 'edit']);
+        Route::post('jenis/{id}/edit', [MJenisDisiplinController::class, 'update']);
+        Route::get('jenis/{id}/delete', [MJenisDisiplinController::class, 'delete']);
+        Route::get('jenis/search', [MJenisDisiplinController::class, 'search']);
+
+        Route::get('hukuman', [KHukumanDisiplinController::class, 'index']);
+
+        Route::get('gantipass', [GantiPassController::class, 'disiplin']);
+        Route::post('gantipass', [GantiPassController::class, 'resetDisiplin']);
+    });
+});
+
 Route::group(['middleware' => ['auth', 'role:karpeg']], function () {
     Route::prefix('karpeg')->group(function () {
         Route::get('karpeg', [KarpegController::class, 'k_index']);
@@ -256,6 +298,90 @@ Route::group(['middleware' => ['auth', 'role:kepegawaian']], function () {
         Route::post('data/jenis', [MJenisController::class, 'store']);
         Route::post('data/jenis/edit', [MJenisController::class, 'update']);
         Route::get('data/jenis/{id}/delete', [MJenisController::class, 'delete']);
+
+        Route::get('data/pangkat', [MPangkatController::class, 'index']);
+        Route::post('data/pangkat', [MPangkatController::class, 'store']);
+        Route::post('data/pangkat/edit', [MPangkatController::class, 'update']);
+        Route::get('data/pangkat/{id}/delete', [MPangkatController::class, 'delete']);
+
+        Route::get('data/kawin', [MKawinController::class, 'index']);
+        Route::post('data/kawin', [MKawinController::class, 'store']);
+        Route::post('data/kawin/edit', [MKawinController::class, 'update']);
+        Route::get('data/kawin/{id}/delete', [MKawinController::class, 'delete']);
+
+        Route::get('data/kedudukan', [MKedudukanController::class, 'index']);
+        Route::post('data/kedudukan', [MKedudukanController::class, 'store']);
+        Route::post('data/kedudukan/edit', [MKedudukanController::class, 'update']);
+        Route::get('data/kedudukan/{id}/delete', [MKedudukanController::class, 'delete']);
+
+        Route::get('data/skpd', [MSkpdController::class, 'index']);
+        Route::post('data/skpd', [MSkpdController::class, 'store']);
+        Route::post('data/skpd/edit', [MSkpdController::class, 'update']);
+        Route::get('data/skpd/{id}/delete', [MSkpdController::class, 'delete']);
+
+        Route::get('data/pendidikan', [MPendidikanController::class, 'index']);
+        Route::post('data/pendidikan', [MPendidikanController::class, 'store']);
+        Route::post('data/pendidikan/edit', [MPendidikanController::class, 'update']);
+        Route::get('data/pendidikan/{id}/delete', [MPendidikanController::class, 'delete']);
+
+        Route::get('data/status', [MStatusPegawaiController::class, 'index']);
+        Route::post('data/status', [MStatusPegawaiController::class, 'store']);
+        Route::post('data/status/edit', [MStatusPegawaiController::class, 'update']);
+        Route::get('data/status/{id}/delete', [MStatusPegawaiController::class, 'delete']);
+
+        Route::get('data/unit1', [MUnit1Controller::class, 'index']);
+        Route::post('data/unit1', [MUnit1Controller::class, 'store']);
+        Route::post('data/unit1/edit', [MUnit1Controller::class, 'update']);
+        Route::get('data/unit1/{id}/delete', [MUnit1Controller::class, 'delete']);
+
+        Route::get('data/unit2', [MUnit2Controller::class, 'index']);
+        Route::post('data/unit2', [MUnit2Controller::class, 'store']);
+        Route::post('data/unit2/edit', [MUnit2Controller::class, 'update']);
+        Route::get('data/unit2/{id}/delete', [MUnit2Controller::class, 'delete']);
+
+        Route::get('data/unit3', [MUnit3Controller::class, 'index']);
+        Route::post('data/unit3', [MUnit3Controller::class, 'store']);
+        Route::post('data/unit3/edit', [MUnit3Controller::class, 'update']);
+        Route::get('data/unit3/{id}/delete', [MUnit3Controller::class, 'delete']);
+
+        Route::get('data/keljab', [MKeljabController::class, 'index']);
+        Route::post('data/keljab', [MKeljabController::class, 'store']);
+        Route::post('data/keljab/edit', [MKeljabController::class, 'update']);
+        Route::get('data/keljab/{id}/delete', [MKeljabController::class, 'delete']);
+
+        Route::get('data/insjab', [MInsjabController::class, 'index']);
+        Route::post('data/insjab', [MInsjabController::class, 'store']);
+        Route::post('data/insjab/edit', [MInsjabController::class, 'update']);
+        Route::get('data/insjab/{id}/delete', [MInsjabController::class, 'delete']);
+
+        Route::get('data/latjab', [MLatjabController::class, 'index']);
+        Route::post('data/latjab', [MLatjabController::class, 'store']);
+        Route::post('data/latjab/edit', [MLatjabController::class, 'update']);
+        Route::get('data/latjab/{id}/delete', [MLatjabController::class, 'delete']);
+
+        //kelola data
+        Route::get('kelola/jenjab', [MJenjabController::class, 'index']);
+        Route::get('kelola/jenjab/add', [MJenjabController::class, 'create']);
+        Route::post('kelola/jenjab/add', [MJenjabController::class, 'store']);
+        Route::get('kelola/jenjab/{id}/edit', [MJenjabController::class, 'edit']);
+        Route::post('kelola/jenjab/{id}/edit', [MJenjabController::class, 'update']);
+        Route::get('kelola/jenjab/{id}/delete', [MJenjabController::class, 'delete']);
+        Route::get('kelola/jenjab/search', [MJenjabController::class, 'search']);
+
+        Route::get('kelola/unitkerja', [MUnitkerjaController::class, 'index']);
+        Route::get('kelola/unitkerja/add', [MUnitkerjaController::class, 'create']);
+        Route::post('kelola/unitkerja/add', [MUnitkerjaController::class, 'store']);
+        Route::get('kelola/unitkerja/{id}/edit', [MUnitkerjaController::class, 'edit']);
+        Route::post('kelola/unitkerja/{id}/edit', [MUnitkerjaController::class, 'update']);
+        Route::get('kelola/unitkerja/{id}/delete', [MUnitkerjaController::class, 'delete']);
+        Route::get('kelola/unitkerja/search', [MUnitkerjaController::class, 'search']);
+
+        Route::get('kelola/pegawai', [MPegawaiController::class, 'index']);
+
+        Route::get('kelola/leveljab', [MLeveljabController::class, 'index']);
+        Route::post('kelola/leveljab', [MLeveljabController::class, 'store']);
+        Route::post('kelola/leveljab/edit', [MLeveljabController::class, 'update']);
+        Route::get('kelola/leveljab/{id}/delete', [MLeveljabController::class, 'delete']);
 
         Route::get('gantipass', [GantiPassController::class, 'kepegawaian']);
         Route::post('gantipass', [GantiPassController::class, 'resetKepegawaian']);

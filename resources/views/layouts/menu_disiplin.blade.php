@@ -1,7 +1,7 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-            <a href="/disiplin/home" class="nav-link {{Request::is('karpeg/home') ? 'active' : ''}}">
+            <a href="/disiplin/home" class="nav-link {{Request::is('disiplin/home') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                     Beranda
@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/disiplin/kategori" class="nav-link {{Request::is('karpeg/karpeg*') ? 'active' : ''}}">
+            <a href="/disiplin/kategori" class="nav-link {{Request::is('disiplin/kategori*') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-list"></i>
                 <p>
                     Kategori Hukuman
@@ -18,7 +18,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="/disiplin/jenis-hukuman" class="nav-link {{Request::is('karpeg/karsu*') ? 'active' : ''}}">
+            <a href="/disiplin/jenis" class="nav-link {{Request::is('disiplin/jenis*') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-list"></i>
                 <p>
                     Jenis Hukuman
@@ -27,7 +27,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="/disiplin/hukuman" class="nav-link {{Request::is('karpeg/karis*') ? 'active' : ''}}">
+            <a href="/disiplin/hukuman" class="nav-link {{Request::is('disiplin/hukuman*') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-list"></i>
                 <p>
                     Hukuman Disiplin
@@ -35,7 +35,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/disiplin/gantipass" class="nav-link {{Request::is('karpeg/gantipass') ? 'active' : ''}}">
+            <a href="/disiplin/gantipass" class="nav-link {{Request::is('disiplin/gantipass') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-key"></i>
                 <p>
                     Ganti Password

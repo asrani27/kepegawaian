@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class M_pangkat extends Model
+class M_skpd extends Model
 {
     use HasFactory;
-    protected $table = 'm_pangkat';
+    protected $table = 'm_skpd';
     protected $guarded = ['id'];
-
-    public $timestamps = false;
 }

@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\M_pangkat;
+use App\Models\M_skpd;
 use Illuminate\Http\Request;
 
-class MPangkatController extends Controller
+class MSkpdController extends Controller
 {
-
     public function index()
     {
-        $data = M_pangkat::orderBy('id', 'DESC')->get();
-        return view('kepegawaian.pangkat.index', compact('data'));
+        $data = M_skpd::orderBy('id', 'DESC')->get();
+        return view('kepegawaian.skpd.index', compact('data'));
     }
 
     public function store(Request $req)
     {
         $attr = $req->all();
-        $check = M_pangkat::where('pangkat', $req->pangkat)->first();
+        $check = M_skpd::where('nama', $req->nama)->first();
         if ($check == null) {
-            M_pangkat::create($attr);
+            M_skpd::create($attr);
             toastr()->success('Berhasil disimpan');
-            return redirect('/kepegawaian/data/pangkat');
+            return redirect('/kepegawaian/data/skpd');
         } else {
             toastr()->error('Sudah Ada');
             return back();
@@ -30,16 +29,16 @@ class MPangkatController extends Controller
     public function update(Request $req)
     {
         $attr = $req->all();
-        $check = M_pangkat::where('pangkat', $req->pangkat)->first();
+        $check = M_skpd::where('nama', $req->nama)->first();
         if ($check == null) {
-            M_pangkat::find($req->pangkat_id)->update($attr);
+            M_skpd::find($req->skpd_id)->update($attr);
             toastr()->success('Berhasil disimpan');
-            return redirect('/kepegawaian/data/pangkat');
+            return redirect('/kepegawaian/data/skpd');
         } else {
-            if ($req->pangkat_id == $check->id) {
-                M_pangkat::find($req->pangkat_id)->update($attr);
+            if ($req->skpd_id == $check->id) {
+                M_skpd::find($req->skpd_id)->update($attr);
                 toastr()->success('Berhasil diupdate');
-                return redirect('/kepegawaian/data/pangkat');
+                return redirect('/kepegawaian/data/skpd');
             } else {
                 toastr()->error('Sudah ada');
                 return back();
@@ -49,7 +48,7 @@ class MPangkatController extends Controller
     public function delete($id)
     {
         try {
-            M_pangkat::find($id)->delete();
+            M_skpd::find($id)->delete();
             toastr()->success('Berhasil dihapus');
             return back();
         } catch (\Exception $e) {
