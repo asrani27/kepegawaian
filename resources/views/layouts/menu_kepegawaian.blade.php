@@ -126,21 +126,21 @@
                     <a href="/kepegawaian/data/keljab"
                         class="nav-link {{Request::is('kepegawaian/data/keljab') ? 'active' : ''}}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>KELJAB</p>
+                        <p>KELOMPOK JABATAN</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/kepegawaian/data/insjab"
                         class="nav-link {{Request::is('kepegawaian/data/insjab') ? 'active' : ''}}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>INSJAB</p>
+                        <p>JENIS JABATAN</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/kepegawaian/data/latjab"
                         class="nav-link {{Request::is('kepegawaian/data/latjab') ? 'active' : ''}}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>LATJAB</p>
+                        <p>LATIHAN JABATAN</p>
                     </a>
                 </li>
             </ul>
@@ -159,7 +159,7 @@
                     <a href="/kepegawaian/kelola/jenjab"
                         class="nav-link {{Request::is('kepegawaian/kelola/jenjab') ? 'active' : ''}}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>JENJAB</p>
+                        <p>JENJANG JABATAN</p>
                     </a>
                 </li>
                 {{-- <li class="nav-item">
@@ -181,6 +181,74 @@
                         class="nav-link {{Request::is('kepegawaian/kelola/pegawai') ? 'active' : ''}}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>PEGAWAI</p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
+                    <a href="/kepegawaian/kelola/organisasi"
+                        class="nav-link {{Request::is('kepegawaian/kelola/organisasi') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ORGANISASI</p>
+                    </a>
+                </li> --}}
+            </ul>
+        </li>
+
+        <li class="nav-item has-treeview {{Request::is('kepegawaian/mutasi*') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('kepegawaian/mutasi*') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                    Mutasi
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="/kepegawaian/mutasi/inskpd"
+                        class="nav-link {{Request::is('kepegawaian/mutasi/inskpd') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>INTERNAL SKPD</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/mutasi/antarskpd"
+                        class="nav-link {{Request::is('kepegawaian/mutasi/antarskpd') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ANTAR SKPD</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/mutasi/keluar"
+                        class="nav-link {{Request::is('kepegawaian/mutasi/keluar') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>PINDAH DARI PEMKO</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/mutasi/masuk"
+                        class="nav-link {{Request::is('kepegawaian/mutasi/masuk') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>MASUK KE PEMKO</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/mutasi/pensiun"
+                        class="nav-link {{Request::is('kepegawaian/mutasi/pensiun') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>PENSIUN</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/mutasi/meninggal"
+                        class="nav-link {{Request::is('kepegawaian/mutasi/meninggal') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>MENINGGAL</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kepegawaian/mutasi/hilang"
+                        class="nav-link {{Request::is('kepegawaian/mutasi/hilang') ? 'active' : ''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>HILANG</p>
                     </a>
                 </li>
                 {{-- <li class="nav-item">

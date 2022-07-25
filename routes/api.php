@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Middleware\CheckToken;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\SkpdController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\PresensiController;
 
@@ -17,4 +18,4 @@ use App\Http\Controllers\API\PresensiController;
 //     Route::get('/pegawai/radius', [PresensiController::class, 'radius']);
 // });
 
-// Route::post('/login', [LoginController::class, 'login']);
+Route::get('/skpd', [SkpdController::class, 'index']);

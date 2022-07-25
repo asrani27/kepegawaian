@@ -22,7 +22,7 @@ Beranda
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table class="table table-bordered table-sm ">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
                             <th>No</th>

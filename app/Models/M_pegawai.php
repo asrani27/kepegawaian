@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class M_pegawai extends Model
 {
     use HasFactory;
+    protected $table = 'm_pegawai';
+    protected $guarded = ['id'];
 }

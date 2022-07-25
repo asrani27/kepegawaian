@@ -377,6 +377,7 @@ Route::group(['middleware' => ['auth', 'role:kepegawaian']], function () {
         Route::get('kelola/unitkerja/search', [MUnitkerjaController::class, 'search']);
 
         Route::get('kelola/pegawai', [MPegawaiController::class, 'index']);
+        Route::get('kelola/pegawai/search', [MPegawaiController::class, 'search']);
 
         Route::get('kelola/leveljab', [MLeveljabController::class, 'index']);
         Route::post('kelola/leveljab', [MLeveljabController::class, 'store']);
