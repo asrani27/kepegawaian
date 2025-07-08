@@ -119,11 +119,16 @@ Beranda
                 @if ($item->nama_verifikator == null)
 
                 <a href="/kepangkatan/prosespengajuan/{{$item->id}}" onclick="return confirm('Yakin Ingin di proses?')"
-                  class="btn btn-xs btn-success"><i class="fa fa-check"></i> PROSES</a>
+                  class="btn btn-xs btn-success"><i class="fa fa-recycle"></i> PROSES</a>
                 @endif
                 <a href="/kepangkatan/deletepengajuan/{{$item->id}}" onclick="return confirm('Yakin Ingin Dihapus?')"
                   class="btn btn-xs btn-danger"><i class="fa fa-trash"></i>
                   HAPUS</a>
+                @if ($item->nama_verifikator != null)
+                <a href="/kepangkatan/selesaipengajuan/{{$item->id}}" onclick="return confirm('Yakin sudah selesai?')"
+                  class="btn btn-xs btn-success"><i class="fa fa-check"></i>
+                  SELESAI</a>
+                @endif
               </td>
             </tr>
             @endforeach

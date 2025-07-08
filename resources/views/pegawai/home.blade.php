@@ -75,8 +75,10 @@ BERANDA
               <td>{{$item->nama_verifikator == null ? null : $item->nama_verifikator->name}}</td>
               <td> <a href="/pegawai/home/{{$item->id}}/dokumen" class="btn btn-sm btn-outline-primary"> Persyaratan
                   Dokumen</a>
+                @if ($item->status != 2)
                 <a href="/pegawai/home/{{$item->id}}/delete" class="btn btn-sm btn-outline-danger"
                   onclick="return confirm('Yakin Di Hapus?');"> <i class="fas fa-trash-alt"></i></a>
+                @endif
               </td>
             </tr>
             @endforeach

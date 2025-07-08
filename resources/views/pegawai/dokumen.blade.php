@@ -115,20 +115,26 @@ BIODATA PEGAWAI
                                 @endif
                             </td>
                             <td style="border:1px solid black;">
+
+                                @if ($data->status != 2)
+
                                 <button class="btn btn-secondary btn-xs upload-dokumen" href="" data-id="{{$item->id}}"
                                     data-nama="{{$item->nama}}">upload </button> |
                                 <a href="/pegawai/home/{{$id}}/deletedokumen/{{$item->id}}"
                                     onclick="return confirm('Yakin Ingin Dihapus?')" class="btn btn-danger btn-xs">hapus
                                 </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <br />
+                @if ($data->status != 2)
                 <a href="/pegawai/home/{{$id}}/dokumen/kirim" class="btn btn-md btn-outline-primary btn-block"
                     onclick="return confirm('Yakin Siap untuk di kirim?');"><i class="fa fa-paper-plane"></i> Kirim
                     Pengajuan</a>
+                @endif
             </div>
         </div>
     </div>

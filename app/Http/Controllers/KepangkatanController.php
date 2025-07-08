@@ -205,6 +205,12 @@ class KepangkatanController extends Controller
         toastr()->success('Berhasil Di Hapus');
         return back();
     }
+    public function selesai_pengajuan($id)
+    {
+        Pengajuan::find($id)->update(['status' => 2]);
+        toastr()->success('Pengajuan selesai');
+        return back();
+    }
     public function proses_pengajuan($id)
     {
         Pengajuan::find($id)->update([
