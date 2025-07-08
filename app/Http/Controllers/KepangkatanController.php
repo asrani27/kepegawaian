@@ -224,7 +224,7 @@ class KepangkatanController extends Controller
     {
         $data = Pengajuan::find($id);
         if ($data->verifikator == null) {
-            toastr()->success('Harap klik tombol proses terlebih dahulu');
+            toastr()->error('Harap klik tombol proses terlebih dahulu');
             return back();
         } else {
             $layanan_id = $data->layanan->id;
