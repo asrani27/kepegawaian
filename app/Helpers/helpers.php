@@ -2,6 +2,9 @@
 
 use App\Models\Upload;
 use App\Models\Berkala;
+use App\Models\Layanan;
+use App\Models\M_jenis_kenaikan_pangkat;
+use App\Models\Persyaratan;
 
 function listUpload($pegawai_id, $persyaratan_id)
 {
@@ -12,6 +15,26 @@ function listSyarat($persyaratan_id)
 {
     $id = json_decode($persyaratan_id);
     return Upload::whereIn('id', $id)->get();
+}
+function jenis_kepangkatan()
+{
+    return M_jenis_kenaikan_pangkat::get();
+}
+function layanan($param)
+{
+    return Layanan::where('jenis', $param)->get();
+}
+function dokumen($layanan_id)
+{
+    return Persyaratan::where('layanan_id', $layanan_id)->get();
+}
+function checkFile($pengajuan_id, $pegawai_id, $persyaratan_id)
+{
+    return Upload::where('pengajuan_id', $pengajuan_id)->where('pegawai_id', $pegawai_id)->where('persyaratan_id', $persyaratan_id)->first();
+}
+function persyaratan($param)
+{
+    return Persyaratan::where('jenis', $param)->get();
 }
 
 function berkalaBaru()

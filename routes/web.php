@@ -52,7 +52,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect(roleUser(Auth::user()));
     }
-    return view('login');
+    return view('login2');
 });
 
 Route::get('/logout', function () {
@@ -64,7 +64,7 @@ Route::get('/login', function () {
     if (Auth::check()) {
         return redirect('/');
     }
-    return view('login');
+    return view('login2');
 })->name('login');
 
 Route::post('/login', [LoginController::class, 'login']);
@@ -105,9 +105,14 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:pegawai']], function () {
     Route::prefix('pegawai')->group(function () {
+        Route::get('home/{id}/deletedokumen/{persyaratan_id}', [PengajuanController::class, 'delete_dokumen']);
+        Route::get('home/{id}/dokumen/kirim', [PengajuanController::class, 'kirim_dokumen']);
+        Route::get('home/{id}/dokumen', [PengajuanController::class, 'dokumen']);
+        Route::post('home/{id}/dokumen', [PengajuanController::class, 'upload_dokumen']);
         Route::get('home/{id}/layanan', [PengajuanController::class, 'layanan']);
         Route::get('home/{id}/delete', [PengajuanController::class, 'delete']);
         Route::post('home/{id}/layanan', [PengajuanController::class, 'store']);
+        Route::post('home/ajukan-layanan', [PengajuanController::class, 'store']);
         Route::get('biodata', [BiodataController::class, 'index']);
         Route::post('biodata/foto', [BiodataController::class, 'foto']);
         Route::get('pasangan', [BiodataController::class, 'pasangan']);
@@ -189,6 +194,23 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
     Route::prefix('kepangkatan')->group(function () {
+
+        Route::get('dokumen/{id}/berkas-ok/{dokumen_id}', [KepangkatanController::class, 'verif_dokumen']);
+        Route::post('dokumen/{id}/perbaikidokumen', [KepangkatanController::class, 'perbaiki_dokumen']);
+        Route::get('dokumen/{id}', [KepangkatanController::class, 'dokumen_pengajuan']);
+        Route::get('deletepengajuan/{id}', [KepangkatanController::class, 'delete_pengajuan']);
+        Route::get('prosespengajuan/{id}', [KepangkatanController::class, 'proses_pengajuan']);
+
+        Route::get('persyaratan', [KepangkatanController::class, 'persyaratan']);
+        Route::post('persyaratan/create', [KepangkatanController::class, 'persyaratan_store']);
+        Route::post('persyaratan/edit', [KepangkatanController::class, 'persyaratan_update']);
+        Route::get('persyaratan/delete/{id}', [KepangkatanController::class, 'persyaratan_delete']);
+
+        Route::get('jenis_kenaikan', [KepangkatanController::class, 'jenis_kenaikan']);
+        Route::post('jenis_kenaikan/create', [KepangkatanController::class, 'jenis_kenaikan_store']);
+        Route::post('jenis_kenaikan/edit', [KepangkatanController::class, 'jenis_kenaikan_update']);
+        Route::get('jenis_kenaikan/delete/{id}', [KepangkatanController::class, 'jenis_kenaikan_delete']);
+
         Route::get('berkala', [BerkalaController::class, 'k_index']);
         Route::get('gantipass', [GantiPassController::class, 'kepangkatan']);
         Route::post('gantipass', [GantiPassController::class, 'resetKepangkatan']);

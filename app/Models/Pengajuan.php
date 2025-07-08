@@ -15,9 +15,13 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
-    
+
     public function layanan()
     {
         return $this->belongsTo(Layanan::class, 'layanan_id');
+    }
+    public function nama_verifikator()
+    {
+        return $this->belongsTo(User::class, 'verifikator');
     }
 }
