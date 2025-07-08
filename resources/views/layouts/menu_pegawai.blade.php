@@ -16,14 +16,14 @@
                 </p>
             </a>
         </li>
-        {{-- <li class="nav-item">
-            <a href="/pegawai/upload" class="nav-link {{ Request::is('pegawai/upload*') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-file"></i>
+        <li class="nav-item">
+            <a href="/pegawai/gantipass" class="nav-link {{Request::is('pegawai/gantipass') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-key"></i>
                 <p>
-                    Upload
+                    Ganti Password
                 </p>
             </a>
-        </li> --}}
+        </li>
         <li class="nav-item">
             <a href="/logout" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt"></i>

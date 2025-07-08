@@ -21,6 +21,7 @@ use App\Models\Kepangkatan;
 use App\Models\SatyaLencana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -48,7 +49,7 @@ class HomeController extends Controller
     {
         if ($req->password1 == $req->password2) {
             $u = Auth::user();
-            $u->password = bcrypt($req->password1);
+            $u->password = Hash::make($req->password1);
             $u->save();
 
             Auth::logout();

@@ -4,13 +4,13 @@
 
 @endpush
 @section('title')
-UBAH PASSWORD SUPERADMIN
+UBAH PASSWORD ANDA
 @endsection
 @section('content')
 <br />
 <div class="row">
     <div class="col-12">
-        <form method="post" action="/superadmin/gantipass">
+        <form method="post" action="/pegawai/gantipass">
             @csrf
             <div class="row">
                 <div class="col-lg-12 col-12">

@@ -105,6 +105,8 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:pegawai']], function () {
     Route::prefix('pegawai')->group(function () {
+        Route::get('gantipass', [PegawaiController::class, 'gantipass']);
+        Route::post('gantipass', [PegawaiController::class, 'resetpass']);
         Route::get('home/{id}/deletedokumen/{persyaratan_id}', [PengajuanController::class, 'delete_dokumen']);
         Route::get('home/{id}/dokumen/kirim', [PengajuanController::class, 'kirim_dokumen']);
         Route::get('home/{id}/dokumen', [PengajuanController::class, 'dokumen']);
