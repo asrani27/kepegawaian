@@ -46,7 +46,7 @@ Beranda
                             <td>
                                 <button class="btn btn-xs btn-outline-primary edit-syarat" data-id="{{$item->id}}"
                                     data-nama="{{$item->nama}}" data-no_urut="{{$item->no_urut}}"
-                                    data-jenis_id="{{$item->layanan_id}}">
+                                    data-jenis_id="{{$item->layanan_id}}" data-wajib="{{$item->wajib}}">
                                     <i class="fas fa-edit"></i></button>
                                 <a href="/kepangkatan/persyaratan/delete/{{$item->id}}"
                                     onclick="return confirm('Yakin ingin di Hapus');"
@@ -189,6 +189,7 @@ Beranda
    $('#no_urut').val($(this).data('no_urut'));
    $('#nama_syarat').val($(this).data('nama'));
    $('#jenis_kenaikan_pangkat').val($(this).data('jenis_id'));
+   $('#wajib').val($(this).data('wajib'));
    $("#modal-edit").modal();
 });
 </script>
