@@ -49,6 +49,8 @@ class importasn extends Command
 
         $totalBaru = 0;
         $totalUpdate = 0;
+        $totalUserBaru = 0;
+        $totalUserUpdate = 0;
 
         foreach (array_slice($rows, 1) as $row) {
             $nip = trim($row[$nipIndex] ?? '');
@@ -58,24 +60,49 @@ class importasn extends Command
             $ket_jabatan = trim($row[$ket_jabatanIndex] ?? '');
 
             if ($nip && $nama) {
+                // Update atau insert pegawai
                 $pegawai = Pegawai::where('nip', $nip)->first();
                 if ($pegawai) {
-                    $pegawai->nama = $nama;
-                    $pegawai->ket_jabatan = $ket_jabatan;
-                    $pegawai->skpd = $skpd;
-                    $pegawai->telp = $telp;
-                    $pegawai->save();
+                    $pegawai->update([
+                        'nama' => $nama,
+                        'ket_jabatan' => $ket_jabatan,
+                        'skpd' => $skpd,
+                        'telp' => $telp,
+                    ]);
                     $totalUpdate++;
                 } else {
-                    Pegawai::create(['nip' => $nip, 'nama' => $nama, 'telp' => $telp]);
+                    Pegawai::create([
+                        'nip' => $nip,
+                        'nama' => $nama,
+                        'telp' => $telp,
+                        'skpd' => $skpd,
+                        'ket_jabatan' => $ket_jabatan,
+                    ]);
                     $totalBaru++;
+                }
+
+                // Update atau insert user
+                $user = User::where('username', $nip)->first();
+                if ($user) {
+                    $user->password = Hash::make('simpegbjm');
+                    $user->save();
+                    $totalUserUpdate++;
+                } else {
+                    User::create([
+                        'username' => $nip,
+                        'name' => $nama,
+                        'password' => Hash::make('simpegbjm'),
+                    ]);
+                    $totalUserBaru++;
                 }
             }
         }
 
         $this->info("Import selesai.");
-        $this->info("Baru ditambahkan: {$totalBaru}");
-        $this->info("Data diupdate: {$totalUpdate}");
+        $this->info("Pegawai ditambahkan: {$totalBaru}");
+        $this->info("Pegawai diupdate: {$totalUpdate}");
+        $this->info("User baru dibuat: {$totalUserBaru}");
+        $this->info("User diupdate (password): {$totalUserUpdate}");
 
         return Command::SUCCESS;
     }
