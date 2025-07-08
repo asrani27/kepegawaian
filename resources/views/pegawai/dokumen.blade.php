@@ -125,8 +125,8 @@ BIODATA PEGAWAI
                     </tbody>
                 </table>
                 <br />
-                <a href="/pegawai/home/{{$id}}/dokumen/kirim" class="btn btn-sm btn-outline-primary btn-block"
-                    onclick="return confirm('Yakin Siap untuk di kirim?');">Kirim
+                <a href="/pegawai/home/{{$id}}/dokumen/kirim" class="btn btn-md btn-outline-primary btn-block"
+                    onclick="return confirm('Yakin Siap untuk di kirim?');"><i class="fa fa-send"></i> Kirim
                     Pengajuan</a>
             </div>
         </div>
