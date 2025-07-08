@@ -34,7 +34,8 @@ class KepangkatanController extends Controller
     public function k_index()
     {
         $layanan = Layanan::where('jenis', 'kepangkatan')->pluck('id');
-        $data = Pengajuan::whereIn('layanan_id', $layanan)->paginate(10);
+        $data = Pengajuan::where('status', 2)->where('jenis', 'kepangkatan')->paginate(10);
+
         return view('kepangkatan.pangkat.index', compact('data'));
     }
 
