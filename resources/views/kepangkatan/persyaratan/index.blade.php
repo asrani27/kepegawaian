@@ -97,7 +97,7 @@ Beranda
                     </div>
                     <div class="form-group">
                         <label>jenis persyaratan</label>
-                        <select class="form-control" name="wajib" id="wajib">
+                        <select class="form-control" name="wajib">
 
                             <option value=""></option>
                             <option value="optional">optional</option>
