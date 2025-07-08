@@ -54,7 +54,9 @@ class importasn extends Command
         $totalUserBaru = 0;
         $totalUserUpdate = 0;
 
-        foreach (array_slice($rows, 1) as $row) {
+        foreach (array_slice($rows, 1) as $i => $row) {
+            $index = $i + 2;
+
             $nip = trim($row[$nipIndex] ?? '');
             $nama = trim($row[$namaIndex] ?? '');
             $telp = trim($row[$telpIndex] ?? '');
@@ -68,6 +70,7 @@ class importasn extends Command
                     $user->password = Hash::make('simpegbjm');
                     $user->save();
                     $totalUserUpdate++;
+                    $this->line("[$index] 🔑 Update user: $nip (password direset)");
                 } else {
                     $user = User::create([
                         'username' => $nip,
@@ -75,6 +78,7 @@ class importasn extends Command
                         'password' => Hash::make('simpegbjm'),
                     ]);
                     $totalUserBaru++;
+                    $this->info("[$index] ✅ Buat user baru: $nip");
                 }
 
                 // 👤 Buat atau update Pegawai
@@ -88,6 +92,7 @@ class importasn extends Command
                         'user_id' => $user->id,
                     ]);
                     $totalUpdate++;
+                    $this->line("[$index] ✏️  Update pegawai: $nip - $nama");
                 } else {
                     Pegawai::create([
                         'nip' => $nip,
@@ -98,6 +103,7 @@ class importasn extends Command
                         'user_id' => $user->id,
                     ]);
                     $totalBaru++;
+                    $this->info("[$index] ➕ Tambah pegawai baru: $nip - $nama");
                 }
             }
         }
