@@ -35,8 +35,7 @@ Pangkat
               <td>{{$item->layanan->nama}}</td>
 
               <td>
-                <a href="/kepangkatan/dokumen/{{$item->id}}/dokumen" class="btn btn-xs btn-primary"><i
-                    class="fa fa-file"></i>
+                <a href="/kepangkatan/dokumen/{{$item->id}}" class="btn btn-xs btn-primary"><i class="fa fa-file"></i>
                   Dokumen Persyaratan</a>
                 {{-- <a href="/kepangkatan/dokumen/{{$item->id}}/dokumen" class="btn btn-xs btn-outline-primary"> <i
                     class="fas fa-file"></i> Dokumen</a><br /> --}}
