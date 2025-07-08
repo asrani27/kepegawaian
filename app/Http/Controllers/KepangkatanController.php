@@ -171,7 +171,7 @@ class KepangkatanController extends Controller
 
     public function persyaratan()
     {
-        $data = Persyaratan::where('jenis', 'kepangkatan')->paginate(10);
+        $data = Persyaratan::where('jenis', 'kepangkatan')->paginate(100);
         return view('kepangkatan.persyaratan.index', compact('data'));
     }
     public function persyaratan_store(Request $req)
