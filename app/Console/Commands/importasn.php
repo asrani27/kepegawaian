@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use App\Models\Pegawai;
+use App\Models\Role;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -53,7 +54,7 @@ class importasn extends Command
         $totalUpdate = 0;
         $totalUserBaru = 0;
         $totalUserUpdate = 0;
-
+        $role = Role::where('name', 'pegawai')->first();
         foreach (array_slice($rows, 1) as $i => $row) {
             $index = $i + 2;
 
@@ -69,6 +70,7 @@ class importasn extends Command
                 if ($user) {
                     $user->password = Hash::make('simpegbjm');
                     $user->save();
+                    $user->roles()->sync([$role->id]);
                     $totalUserUpdate++;
                     $this->line("[$index] 🔑 Update user: $nip (password direset)");
                 } else {
@@ -77,6 +79,7 @@ class importasn extends Command
                         'name' => $nama,
                         'password' => Hash::make('simpegbjm'),
                     ]);
+                    $user->roles()->attach($role);
                     $totalUserBaru++;
                     $this->info("[$index] ✅ Buat user baru: $nip");
                 }
