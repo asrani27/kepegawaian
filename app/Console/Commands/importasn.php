@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use App\Models\Pegawai;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class importasn extends Command
@@ -60,7 +62,22 @@ class importasn extends Command
             $ket_jabatan = trim($row[$ket_jabatanIndex] ?? '');
 
             if ($nip && $nama) {
-                // Update atau insert pegawai
+                // 🔐 Buat atau update User
+                $user = User::where('username', $nip)->first();
+                if ($user) {
+                    $user->password = Hash::make('simpegbjm');
+                    $user->save();
+                    $totalUserUpdate++;
+                } else {
+                    $user = User::create([
+                        'username' => $nip,
+                        'name' => $nama,
+                        'password' => Hash::make('simpegbjm'),
+                    ]);
+                    $totalUserBaru++;
+                }
+
+                // 👤 Buat atau update Pegawai
                 $pegawai = Pegawai::where('nip', $nip)->first();
                 if ($pegawai) {
                     $pegawai->update([
@@ -68,6 +85,7 @@ class importasn extends Command
                         'ket_jabatan' => $ket_jabatan,
                         'skpd' => $skpd,
                         'telp' => $telp,
+                        'user_id' => $user->id,
                     ]);
                     $totalUpdate++;
                 } else {
@@ -77,23 +95,9 @@ class importasn extends Command
                         'telp' => $telp,
                         'skpd' => $skpd,
                         'ket_jabatan' => $ket_jabatan,
+                        'user_id' => $user->id,
                     ]);
                     $totalBaru++;
-                }
-
-                // Update atau insert user
-                $user = User::where('username', $nip)->first();
-                if ($user) {
-                    $user->password = Hash::make('simpegbjm');
-                    $user->save();
-                    $totalUserUpdate++;
-                } else {
-                    User::create([
-                        'username' => $nip,
-                        'name' => $nama,
-                        'password' => Hash::make('simpegbjm'),
-                    ]);
-                    $totalUserBaru++;
                 }
             }
         }
