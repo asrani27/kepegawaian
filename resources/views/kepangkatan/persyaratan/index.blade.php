@@ -28,6 +28,7 @@ Beranda
                             <th>No</th>
                             <th>No Urut</th>
                             <th>Nama Persyaratan</th>
+                            <th>Jenis Persyaratan</th>
                             <th>Jenis Kenaikan Pangkat</th>
                             <th>Aksi</th>
                         </tr>
@@ -38,6 +39,7 @@ Beranda
                             <td>{{$data->firstItem() + $key}}</td>
                             <td>{{$item->no_urut}}</td>
                             <td>{{$item->nama}}</td>
+                            <td>{{$item->wajib}}</td>
                             <td>{{$item->nama_jenis}}</td>
 
 
@@ -77,7 +79,8 @@ Beranda
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nomor Urut</label>
-                        <input type="text" class="form-control" name="no_urut" placeholder="no urut">
+                        <input type="text" class="form-control" name="no_urut" placeholder="no urut"
+                            onkeypress="return hanyaAngka(event)">
                     </div>
                     <div class="form-group">
                         <label>Nama Persyaratan</label>
@@ -90,6 +93,14 @@ Beranda
                             @foreach (layanan('kepangkatan') as $item)
                             <option value="{{$item->id}}">{{$item->nama}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>jenis persyaratan</label>
+                        <select class="form-control" name="wajib" id="wajib">
+
+                            <option value=""></option>
+                            <option value="optional">optional</option>
                         </select>
                     </div>
                 </div>
@@ -118,7 +129,8 @@ Beranda
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nomor Urut</label>
-                        <input type="text" class="form-control" id="no_urut" name="no_urut" placeholder="no urut">
+                        <input type="text" class="form-control" id="no_urut" name="no_urut" placeholder="no urut"
+                            onkeypress="return hanyaAngka(event)">
                     </div>
                     <div class="form-group">
                         <label>Nama Persyaratan </label>
@@ -132,6 +144,14 @@ Beranda
                             @foreach (layanan('kepangkatan') as $item)
                             <option value="{{$item->id}}">{{$item->nama}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>jenis persyaratan</label>
+                        <select class="form-control" name="wajib" id="wajib">
+
+                            <option value=""></option>
+                            <option value="optional">optional</option>
                         </select>
                     </div>
                 </div>
@@ -152,7 +172,15 @@ Beranda
    $("#modal-tambah").modal();
 });
 </script>
+<script>
+    function hanyaAngka(evt) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
+       if (charCode > 31 && (charCode < 48 || charCode > 57))
 
+        return false;
+      return true;
+    }
+</script>
 
 <script>
     $(document).on('click', '.edit-syarat', function() {
