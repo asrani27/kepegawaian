@@ -26,6 +26,6 @@ class Pengajuan extends Model
     }
     public function upload()
     {
-        return $this->belongsTo(Upload::class, 'pengajuan_id');
+        return $this->hasMany(Upload::class, 'pengajuan_id');
     }
 }

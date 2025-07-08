@@ -71,7 +71,7 @@ BERANDA
                 @if ($item->status == 2)
                 <span class="badge badge-success"> SELESAI</span>
                 @endif
-                @if ($item->upload->where('verifikasi',2)->count() > 0)
+                @if ($item->upload->where('verifikasi',2)->count() > 0)<br />
                 <span class="badge badge-danger"><i class="fa fa-times"></i></span> ada yang perlu diperbaiki
                 @endif
               </td>
