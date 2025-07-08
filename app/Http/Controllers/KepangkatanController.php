@@ -223,8 +223,13 @@ class KepangkatanController extends Controller
     public function dokumen_pengajuan($id)
     {
         $data = Pengajuan::find($id);
-        $layanan_id = $data->layanan->id;
-        return view('kepangkatan.dokumen', compact('data', 'layanan_id', 'id'));
+        if ($data->verifikator == null) {
+            toastr()->success('Harap klik tombol proses terlebih dahulu');
+            return back();
+        } else {
+            $layanan_id = $data->layanan->id;
+            return view('kepangkatan.dokumen', compact('data', 'layanan_id', 'id'));
+        }
     }
 
     public function verif_dokumen($id, $dokumen_id)
