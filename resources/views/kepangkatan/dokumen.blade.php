@@ -114,6 +114,7 @@ BIODATA PEGAWAI
                             </td>
 
                             <td style="border:1px solid black;">
+                                @if ($data->status != 2)
                                 @if ($dokumen != null)
 
                                 <a href="/kepangkatan/dokumen/{{$id}}/berkas-ok/{{$dokumen->id}}"
@@ -124,6 +125,7 @@ BIODATA PEGAWAI
                                 <button class="btn btn-danger btn-xs perbaiki-dokumen" href=""
                                     data-id="{{$dokumen->id}}"><i class="fa fa-times"></i>
                                 </button>
+                                @endif
                                 @endif
                             </td>
                         </tr>
