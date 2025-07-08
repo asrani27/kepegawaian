@@ -71,6 +71,9 @@ BERANDA
                 @if ($item->status == 2)
                 <span class="badge badge-success"> SELESAI</span>
                 @endif
+                @if ($item->upload->where('verifikasi',2)->count() > 0)
+                <span class="badge badge-danger"><i class="fa fa-times"></i></span> ada yang perlu diperbaiki
+                @endif
               </td>
               <td>{{$item->nama_verifikator == null ? null : $item->nama_verifikator->name}}</td>
               <td> <a href="/pegawai/home/{{$item->id}}/dokumen" class="btn btn-sm btn-outline-primary"> Persyaratan

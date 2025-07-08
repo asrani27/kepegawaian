@@ -24,4 +24,8 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(User::class, 'verifikator');
     }
+    public function upload()
+    {
+        return $this->belongsTo(Upload::class, 'pengajuan_id');
+    }
 }
