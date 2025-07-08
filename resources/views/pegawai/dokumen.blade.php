@@ -89,7 +89,8 @@ BIODATA PEGAWAI
 
                         <tr>
                             <td style="border:1px solid black;">{{$item->no_urut}}</td>
-                            <td style="border:1px solid black;">{{$item->nama}}</td>
+                            <td style="border:1px solid black;">{{$item->nama}} {{$item->wajib == null ? null :
+                                '('.$item->wajib.')'}}</td>
                             <td style="border:1px solid black;">PDF 1 MB</td>
                             <td style="border:1px solid black;">
                                 @php

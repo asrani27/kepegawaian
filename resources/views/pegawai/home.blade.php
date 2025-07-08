@@ -61,8 +61,15 @@ BERANDA
               <td>
                 @if ($item->status == 0)
                 <span class="badge badge-primary"> HARAP UPLOAD DOKUMEN</span>
-                @endif @if ($item->status == 1)
+                @endif
+                @if ($item->status == 1 && $item->verifikator == null)
                 <span class="badge badge-primary"> DIKIRIM</span>
+                @endif
+                @if ($item->status == 1 && $item->verifikator != null)
+                <span class="badge badge-warning"> DIPROSES</span>
+                @endif
+                @if ($item->status == 2)
+                <span class="badge badge-success"> SELESAI</span>
                 @endif
               </td>
               <td>{{$item->nama_verifikator == null ? null : $item->nama_verifikator->name}}</td>

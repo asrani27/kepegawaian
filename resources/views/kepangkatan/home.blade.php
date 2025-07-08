@@ -87,6 +87,7 @@ Beranda
               <th>NIK/Nama</th>
               <th>Dokumen</th>
               <th>Di Proses Oleh</th>
+              <th></th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -105,6 +106,14 @@ Beranda
               </td>
               <td>
                 {{$item->nama_verifikator == null ? null : $item->nama_verifikator->name}}
+              </td>
+              <td>
+                @if ($item->status == 1 && $item->verifikator != null)
+                <span class="badge badge-warning"> DIPROSES</span>
+                @endif
+                @if ($item->status == 2)
+                <span class="badge badge-success"> SELESAI</span>
+                @endif
               </td>
               <td>
                 @if ($item->nama_verifikator == null)
