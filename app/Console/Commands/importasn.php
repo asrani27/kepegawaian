@@ -44,6 +44,7 @@ class importasn extends Command
         $telpIndex = array_search('nomor telpon', $header);
         $ket_jabatanIndex = array_search('jabatan nama', $header);
         $skpdIndex = array_search('unor', $header);
+        $golIndex = array_search('gol akhir nama', $header);
 
         if ($nipIndex === false || $namaIndex === false) {
             $this->error("Kolom 'nip' dan 'nama' tidak ditemukan.");
@@ -63,6 +64,7 @@ class importasn extends Command
             $telp = trim($row[$telpIndex] ?? '');
             $skpd = trim($row[$skpdIndex] ?? '');
             $ket_jabatan = trim($row[$ket_jabatanIndex] ?? '');
+            $gol = trim($row[$golIndex] ?? '');
 
             if ($nip && $nama) {
                 // 🔐 Buat atau update User
@@ -93,6 +95,7 @@ class importasn extends Command
                         'skpd' => $skpd,
                         'telp' => $telp,
                         'user_id' => $user->id,
+                        'gol_pangkat' => $gol,
                     ]);
                     $totalUpdate++;
                     $this->line("[$index] ✏️  Update pegawai: $nip - $nama");
@@ -104,6 +107,7 @@ class importasn extends Command
                         'skpd' => $skpd,
                         'ket_jabatan' => $ket_jabatan,
                         'user_id' => $user->id,
+                        'gol_pangkat' => $gol,
                     ]);
                     $totalBaru++;
                     $this->info("[$index] ➕ Tambah pegawai baru: $nip - $nama");
