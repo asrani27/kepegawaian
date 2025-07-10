@@ -13,9 +13,8 @@ function listUpload($pegawai_id, $persyaratan_id)
 function sortValue($golongan)
 {
     $parts = explode('/', $golongan);
-
     $angka = $parts[0] ?? '';
-    $huruf = $parts[1] ?? 'a'; // default 'a' jika huruf tidak ada
+    $huruf = strtolower($parts[1] ?? 'a'); // default a
 
     $roman = [
         'I' => 1,
@@ -25,7 +24,15 @@ function sortValue($golongan)
         'V' => 5,
     ];
 
-    return ($roman[$angka] ?? 0) * 10 + ord(strtolower($huruf));
+    $hurufOrder = [
+        'a' => 1,
+        'b' => 2,
+        'c' => 3,
+        'd' => 4,
+        'e' => 5,
+    ];
+
+    return ($roman[$angka] ?? 0) * 10 + ($hurufOrder[$huruf] ?? 0);
 }
 function listSyarat($persyaratan_id)
 {
