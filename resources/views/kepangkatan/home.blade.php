@@ -3,6 +3,9 @@
 @push('css')
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
+<!-- DataTables -->
+<link rel="stylesheet" href="/theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 @endpush
 @section('title')
 Beranda
@@ -79,7 +82,7 @@ Beranda
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table class="table table-bordered table-sm">
+        <table class="table table-bordered table-sm" id="example1">
           <thead>
             <tr class="bg-gradient-primary">
               <th style="width: 10px">#</th>
@@ -156,4 +159,26 @@ Beranda
 
 @push('js')
 
+<!-- DataTables -->
+<script src="/theme/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/theme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/theme/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/theme/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 @endpush
