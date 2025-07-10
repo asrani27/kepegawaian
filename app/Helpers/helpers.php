@@ -10,7 +10,19 @@ function listUpload($pegawai_id, $persyaratan_id)
 {
     return Upload::where('pegawai_id', $pegawai_id)->where('persyaratan_id', $persyaratan_id)->get();
 }
+function sortValue($golongan)
+{
+    [$angka, $huruf] = explode('/', $golongan);
 
+    $roman = [
+        'I' => 1,
+        'II' => 2,
+        'III' => 3,
+        'IV' => 4,
+    ];
+
+    return ($roman[$angka] ?? 0) * 10 + ord(strtolower($huruf));
+}
 function listSyarat($persyaratan_id)
 {
     $id = json_decode($persyaratan_id);

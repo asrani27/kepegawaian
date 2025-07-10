@@ -18,7 +18,7 @@ Beranda
 
       <div class="info-box-content">
         <span class="info-box-text">Kenaikan Pangkat</span>
-        <span class="info-box-number">{{$berkala}}</span>
+        <span class="info-box-number">{{$pangkat}}</span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 70%"></div>
@@ -38,7 +38,7 @@ Beranda
 
       <div class="info-box-content">
         <span class="info-box-text">Kenaikan Diproses</span>
-        <span class="info-box-number">{{$pangkat}}</span>
+        <span class="info-box-number">{{$diproses}}</span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 70%"></div>
@@ -58,7 +58,7 @@ Beranda
 
       <div class="info-box-content">
         <span class="info-box-text">Kenaikan Selesai</span>
-        <span class="info-box-number">0</span>
+        <span class="info-box-number">{{$selesai}}</span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 70%"></div>

@@ -78,11 +78,15 @@ class HomeController extends Controller
     public function kepangkatan()
     {
         //Sub Bidang Kepangkatan
-        $pangkat = count(Kepangkatan::get());
-        $berkala = count(Berkala::get());
-        $data = Pengajuan::where('jenis', 'kepangkatan')->where('status', '1')->get();
+        $pangkat = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 0)->get());
+        $diproses = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->get());
+        $selesai = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 2)->get());
 
-        return view('kepangkatan.home', compact('berkala', 'pangkat', 'data'));
+        $data = Pengajuan::where('jenis', 'kepangkatan')->where('status', '1')->get()->sortBy(function ($item) {
+            return sortValue($item->gol_pangkat);
+        })->values();
+
+        return view('kepangkatan.home', compact('pangkat', 'diproses', 'selesai', 'data'));
     }
 
     public function pensiun()
