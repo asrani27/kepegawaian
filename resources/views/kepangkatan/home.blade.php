@@ -85,9 +85,10 @@ Beranda
               <th style="width: 10px">#</th>
               <th>Tanggal</th>
               <th>NIK/Nama</th>
+              <th>Golongan</th>
               <th>Dokumen</th>
               <th>Di Proses Oleh</th>
-              <th></th>
+              <th>Status</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -98,8 +99,9 @@ Beranda
               <td>{{\CArbon\CArbon::parse($item->created_at)->format('d M Y')}}</td>
               <td>
                 {{$item->pegawai->nama}} <br /> {{$item->pegawai->nip}}<br /> {{$item->pegawai->nm_pangkat}}
-                {{$item->pegawai->gol_pangkat}}
+
               </td>
+              <td> {{$item->pegawai->gol_pangkat}}</td>
               <td>
                 <a href="/kepangkatan/dokumen/{{$item->id}}" class="btn btn-xs btn-primary"><i class="fa fa-file"></i>
                   Dokumen Persyaratan</a>
