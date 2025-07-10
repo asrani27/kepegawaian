@@ -12,13 +12,17 @@ function listUpload($pegawai_id, $persyaratan_id)
 }
 function sortValue($golongan)
 {
-    [$angka, $huruf] = explode('/', $golongan);
+    $parts = explode('/', $golongan);
+
+    $angka = $parts[0] ?? '';
+    $huruf = $parts[1] ?? 'a'; // default 'a' jika huruf tidak ada
 
     $roman = [
         'I' => 1,
         'II' => 2,
         'III' => 3,
         'IV' => 4,
+        'V' => 5,
     ];
 
     return ($roman[$angka] ?? 0) * 10 + ord(strtolower($huruf));
