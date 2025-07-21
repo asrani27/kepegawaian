@@ -64,7 +64,7 @@ BIODATA PEGAWAI
                     </tr>
                     <tr>
                         <td>UNIT KERJA</td>
-                        <td>: {{$data->pegawai->unit_kerja}}</td>
+                        <td>: {{$data->pegawai->skpd}}</td>
                     </tr>
                 </table>
             </div>
