@@ -28,6 +28,7 @@ class PengajuanController extends Controller
     {
         $layanan_id = Pengajuan::find($id)->layanan_id;
         $data = Pengajuan::find($id);
+
         return view('pegawai.dokumen', compact('id', 'layanan_id', 'data'));
     }
     public function kirim_dokumen($id)
@@ -54,9 +55,11 @@ class PengajuanController extends Controller
             return back();
         }
         $persyaratan = Persyaratan::find($req->persyaratan_id)->nama;
+        $jenis = Persyaratan::find($req->persyaratan_id)->jenis;
+
         $path = Auth::user()->pegawai->nip . '/' . 'pengajuan' . $id;
         $filename = str_replace(' ', '_', Auth::user()->pegawai->nip . '_' . Auth::user()->pegawai->nama . '_' . $persyaratan . '.pdf');
-        $upload = $req->file('file')->storeAs("kepangkatan/$path", $filename, 'public');
+        $upload = $req->file('file')->storeAs($jenis . "/" . $path, $filename, 'public');
 
         $check = Upload::where('pengajuan_id', $id)->where('persyaratan_id', $req->persyaratan_id)->where('pegawai_id', Auth::user()->pegawai->id)->first();
         if ($check == null) {

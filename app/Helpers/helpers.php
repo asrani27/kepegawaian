@@ -47,9 +47,9 @@ function layanan($param)
 {
     return Layanan::where('jenis', $param)->get();
 }
-function dokumen($layanan_id)
+function dokumen($layanan_id, $jenis)
 {
-    return Persyaratan::where('layanan_id', $layanan_id)->get();
+    return Persyaratan::where('layanan_id', $layanan_id)->where('jenis', $jenis)->get();
 }
 function checkFile($pengajuan_id, $pegawai_id, $persyaratan_id)
 {
@@ -81,6 +81,8 @@ function roleUser($param)
         $location = '/disiplin/home';
     } elseif ($param->hasRole('kepegawaian')) {
         $location = '/kepegawaian/home';
+    } elseif ($param->hasRole('slks')) {
+        $location = '/slks/home';
     } else {
         $location = '/pegawai/home';
     }
@@ -103,6 +105,8 @@ function menuUser($param)
         $location = 'menu_disiplin';
     } elseif ($param->hasRole('kepegawaian')) {
         $location = 'menu_kepegawaian';
+    } elseif ($param->hasRole('slks')) {
+        $location = 'menu_slks';
     } else {
         $location = 'menu_pegawai';
     }

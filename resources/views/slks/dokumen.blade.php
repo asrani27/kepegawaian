@@ -11,7 +11,7 @@ BIODATA PEGAWAI
     <div class="col-12">
         <tr>
             <td>
-                <a href="/pegawai/home" class="btn bg-xs bg-gradient-danger"><i class="fas fa-arrow-left"></i>
+                <a href="/slks/home" class="btn bg-xs bg-gradient-danger"><i class="fas fa-arrow-left"></i>
                     Kembali</a>
             </td>
         </tr>
@@ -89,8 +89,7 @@ BIODATA PEGAWAI
 
                         <tr>
                             <td style="border:1px solid black;">{{$item->no_urut}}</td>
-                            <td style="border:1px solid black;">{{$item->nama}} {{$item->wajib == null ? null :
-                                '('.$item->wajib.')'}}</td>
+                            <td style="border:1px solid black;">{{$item->nama}}</td>
                             <td style="border:1px solid black;">PDF 1 MB</td>
                             <td style="border:1px solid black;">
                                 @php
@@ -98,11 +97,10 @@ BIODATA PEGAWAI
                                 @endphp
                                 @if ($dokumen)
                                 <a class="btn btn-xs btn-success" target="_blank"
-                                    href="/storage/kepangkatan/{{$data->pegawai->nip}}/pengajuan{{$id}}/{{$dokumen->file}}">
+                                    href="/storage/slks/{{$data->pegawai->nip}}/pengajuan{{$id}}/{{$dokumen->file}}">
                                     preview
                                 </a>
                                 @else - @endif
-
                             </td>
                             <td style="border:1px solid black;">
                                 @if ($dokumen != null)
@@ -114,15 +112,20 @@ BIODATA PEGAWAI
                                 @endif
                                 @endif
                             </td>
+
                             <td style="border:1px solid black;">
-
                                 @if ($data->status != 2)
+                                @if ($dokumen != null)
 
-                                <button class="btn btn-secondary btn-xs upload-dokumen" href="" data-id="{{$item->id}}"
-                                    data-nama="{{$item->nama}}">upload </button> |
-                                <a href="/pegawai/home/{{$id}}/deletedokumen/{{$item->id}}"
-                                    onclick="return confirm('Yakin Ingin Dihapus?')" class="btn btn-danger btn-xs">hapus
+                                <a href="/slks/dokumen/{{$id}}/berkas-ok/{{$dokumen->id}}"
+                                    onclick="return confirm('Berkas sudah OK?')" class="btn btn-success btn-xs"><i
+                                        class="fa fa-check"></i>
                                 </a>
+
+                                <button class="btn btn-danger btn-xs perbaiki-dokumen" href=""
+                                    data-id="{{$dokumen->id}}"><i class="fa fa-times"></i>
+                                </button>
+                                @endif
                                 @endif
                             </td>
                         </tr>
@@ -130,23 +133,19 @@ BIODATA PEGAWAI
                     </tbody>
                 </table>
                 <br />
-                @if ($data->status != 2)
-                <a href="/pegawai/home/{{$id}}/dokumen/kirim" class="btn btn-md btn-outline-primary btn-block"
-                    onclick="return confirm('Yakin Siap untuk di kirim?');"><i class="fa fa-paper-plane"></i> Kirim
-                    Pengajuan</a>
-                @endif
+
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modal-upload" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="modal-perbaiki" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/pegawai/home/{{$id}}/dokumen" enctype="multipart/form-data">
+            <form method="post" action="/slks/dokumen/{{$id}}/perbaikidokumen" enctype="multipart/form-data">
                 @csrf
-                <div class="modal-header bg-gradient-secondary" style="padding:10px">
-                    <h4 class="modal-title text-sm">Upload <span id="nama-upload"></span>
+                <div class="modal-header bg-gradient-danger" style="padding:10px">
+                    <h4 class="modal-title text-sm">Berikan Keterangan Dokumen di tolak <span id="nama-upload"></span>
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -154,13 +153,14 @@ BIODATA PEGAWAI
                 </div>
 
                 <div class="modal-body">
-                    <p>Max 1 MB</p>
+                    <p>Alasan :</p>
                     <input type="hidden" id="persyaratan_id" name="persyaratan_id">
-                    <input type="file" name="file" accept="application/pdf" required>
+                    <input type="text" name="keterangan" class="form-control">
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-image"></i> Upload</button>
+                    <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-send"></i> Kirim Ke
+                        pegawai</button>
                 </div>
             </form>
         </div>
@@ -170,11 +170,10 @@ BIODATA PEGAWAI
 
 @push('js')
 <script>
-    $(document).on('click', '.upload-dokumen', function() {
+    $(document).on('click', '.perbaiki-dokumen', function() {
    $('#persyaratan_id').val($(this).data('id'));
 
-    $('#nama-upload').text($(this).data('nama'));
-   $("#modal-upload").modal();
+   $("#modal-perbaiki").modal();
 });
 </script>
 @endpush

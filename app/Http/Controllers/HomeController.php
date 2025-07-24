@@ -92,6 +92,23 @@ class HomeController extends Controller
         return view('kepangkatan.home', compact('pangkat', 'diproses', 'selesai', 'data'));
     }
 
+    public function slks()
+    {
+        //Sub Bidang slks
+        $slks = count(Pengajuan::where('jenis', 'slks')->where('status', 1)->get());
+        $diproses = count(Pengajuan::where('jenis', 'slks')->where('status', 1)->where('verifikator', '!=', null)->get());
+        $selesai = count(Pengajuan::where('jenis', 'slks')->where('status', 2)->get());
+
+        $data = Pengajuan::where('jenis', 'slks')->where('status', '1')->get()->map(function ($item) {
+            $item->gol_pangkat = $item->pegawai->gol_pangkat;
+            return $item;
+        })->sortBy(function ($item) {
+            return sortValue($item->gol_pangkat);
+        })->values();
+
+        return view('slks.home', compact('slks', 'diproses', 'selesai', 'data'));
+    }
+
     public function pensiun()
     {
         //Sub Bidang Pensiun

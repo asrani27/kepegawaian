@@ -233,6 +233,31 @@ Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
         Route::get('berkala/{id}/sk/cetak', [BerkalaController::class, 'cetak_sk_berkala']);
     });
 });
+Route::group(['middleware' => ['auth', 'role:slks']], function () {
+    Route::prefix('slks')->group(function () {
+
+        Route::get('dokumen/{id}/berkas-ok/{dokumen_id}', [SatyaLencanaController::class, 'verif_dokumen']);
+        Route::post('dokumen/{id}/perbaikidokumen', [SatyaLencanaController::class, 'perbaiki_dokumen']);
+        Route::get('dokumen/{id}', [SatyaLencanaController::class, 'dokumen_pengajuan']);
+        Route::get('selesaipengajuan/{id}', [SatyaLencanaController::class, 'selesai_pengajuan']);
+        Route::get('deletepengajuan/{id}', [SatyaLencanaController::class, 'delete_pengajuan']);
+        Route::get('prosespengajuan/{id}', [SatyaLencanaController::class, 'proses_pengajuan']);
+
+        Route::get('persyaratan', [SatyaLencanaController::class, 'persyaratan']);
+        Route::post('persyaratan/create', [SatyaLencanaController::class, 'persyaratan_store']);
+        Route::post('persyaratan/edit', [SatyaLencanaController::class, 'persyaratan_update']);
+        Route::get('persyaratan/delete/{id}', [SatyaLencanaController::class, 'persyaratan_delete']);
+
+        Route::get('jenis', [SatyaLencanaController::class, 'jenis']);
+        Route::post('jenis/create', [SatyaLencanaController::class, 'jenis_store']);
+        Route::post('jenis/edit', [SatyaLencanaController::class, 'jenis_update']);
+        Route::get('jenis/delete/{id}', [SatyaLencanaController::class, 'jenis_delete']);
+
+        Route::get('data', [SatyaLencanaController::class, 'index']);
+        Route::get('gantipass', [GantiPassController::class, 'slks']);
+        Route::post('gantipass', [GantiPassController::class, 'resetslks']);
+    });
+});
 
 Route::group(['middleware' => ['auth', 'role:pensiun']], function () {
     Route::prefix('pensiun')->group(function () {
@@ -414,10 +439,11 @@ Route::group(['middleware' => ['auth', 'role:kepegawaian']], function () {
     });
 });
 
-Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin|pensiun|karpeg|disiplin|kepegawaian']], function () {
+Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admin|pensiun|karpeg|disiplin|kepegawaian|slks']], function () {
     Route::get('/superadmin/home', [HomeController::class, 'superadmin']);
     Route::get('/pegawai/home', [HomeController::class, 'pegawai']);
     Route::get('/kepangkatan/home', [HomeController::class, 'kepangkatan']);
+    Route::get('/slks/home', [HomeController::class, 'slks']);
     Route::get('/pensiun/home', [HomeController::class, 'pensiun']);
     Route::get('/karpeg/home', [HomeController::class, 'karpeg']);
     Route::get('/admin/home', [HomeController::class, 'admin']);
