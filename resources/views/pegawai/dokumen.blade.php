@@ -98,7 +98,7 @@ BIODATA PEGAWAI
                                 @endphp
                                 @if ($dokumen)
                                 <a class="btn btn-xs btn-success" target="_blank"
-                                    href="/storage/kepangkatan/{{$data->pegawai->nip}}/pengajuan{{$id}}/{{$dokumen->file}}">
+                                    href="/storage/{{$data->jenis}}/{{$data->pegawai->nip}}/pengajuan{{$id}}/{{$dokumen->file}}">
                                     preview
                                 </a>
                                 @else - @endif
