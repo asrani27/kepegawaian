@@ -85,7 +85,7 @@ BIODATA PEGAWAI
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (dokumen($layanan_id) as $key=> $item)
+                        @foreach (dokumen($layanan_id, $data->jenis) as $key=> $item)
 
                         <tr>
                             <td style="border:1px solid black;">{{$item->no_urut}}</td>
