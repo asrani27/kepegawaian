@@ -82,7 +82,7 @@ class HomeController extends Controller
         $diproses = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->where('verifikator', '!=', null)->get());
         $selesai = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 2)->get());
 
-        $data = Pengajuan::where('jenis', 'kepangkatan')->where('status', '1')->get()->map(function ($item) {
+        $data = Pengajuan::where('jenis', 'kepangkatan')->where('status', '1')->orWhere('status', 0)->get()->map(function ($item) {
             $item->gol_pangkat = $item->pegawai->gol_pangkat;
             return $item;
         })->sortBy(function ($item) {
