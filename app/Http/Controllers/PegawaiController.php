@@ -175,10 +175,10 @@ class PegawaiController extends Controller
     public function pass($id)
     {
         $u = Pegawai::find($id)->user;
-        $u->password = bcrypt(Carbon::parse(Pegawai::find($id)->tanggal_lahir)->format('dmY'));
+        $u->password = bcrypt('simpegbjm');
         $u->save();
 
-        toastr()->success('Password Baru : ' . Carbon::parse($u->tanggal_lahir)->format('dmY'));
+        toastr()->success('Password Baru : simpegbjm ');
         return back();
     }
 

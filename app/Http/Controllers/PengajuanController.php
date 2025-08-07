@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Upload;
 use App\Models\Layanan;
+use App\Models\Periode;
 use App\Models\Pengajuan;
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
@@ -85,23 +87,52 @@ class PengajuanController extends Controller
         // return view('pegawai.dokumen', compact('id', 'layanan_id', 'data'));
     }
 
+
     public function store(Request $req)
     {
-        $check = Pengajuan::where('layanan_id', $req->layanan_id)->where('pegawai_id', $this->pegawai()->id)->where('status', 0)->first();
-        if ($check == null) {
-            $p = new Pengajuan;
-            $p->layanan_id = $req->layanan_id;
-            $p->pegawai_id = $this->pegawai()->id;
-            $p->jenis = Layanan::find($req->layanan_id)->jenis;
-            $p->save();
+        $layanan = Layanan::find($req->layanan_id);
+        if (!$layanan) {
+            toastr()->error('Layanan tidak ditemukan.');
+            return back();
+        }
 
-            toastr()->success('Berhasil Di Ajukan');
-            return redirect('/pegawai/home');
-        } else {
+        $periode = Periode::where('jenis', $layanan->jenis)->first();
+        if (!$periode) {
+            toastr()->error('Periode Pengajuan Kepangkatan Belum Dibuka');
+            return back();
+        }
+
+        $tanggalSekarang = now();
+        $mulai = Carbon::parse($periode->mulai);
+        $sampai = Carbon::parse($periode->sampai);
+
+        if (!$tanggalSekarang->between($mulai, $sampai)) {
+            toastr()->error('Pengajuan Kepangkatan mulai tgl: ' . $mulai->translatedFormat('d F Y') . ' s/d ' . $sampai->translatedFormat('d F Y'));
+            return back();
+        }
+
+        $pegawaiId = $this->pegawai()->id;
+        $pengajuanLama = Pengajuan::where([
+            ['layanan_id', $layanan->id],
+            ['pegawai_id', $pegawaiId],
+            ['status', 0],
+        ])->first();
+
+        if ($pengajuanLama) {
             toastr()->error('Anda sudah mengajukan layanan ini dan masih tahap proses');
             return back();
         }
+
+        Pengajuan::create([
+            'layanan_id' => $layanan->id,
+            'pegawai_id' => $pegawaiId,
+            'jenis'      => $layanan->jenis,
+        ]);
+
+        toastr()->success('Berhasil Diajukan');
+        return redirect('/pegawai/home');
     }
+
 
     public function delete($id)
     {

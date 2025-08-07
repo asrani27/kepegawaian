@@ -47,6 +47,7 @@ use App\Http\Controllers\MJenisDisiplinController;
 use App\Http\Controllers\MStatusPegawaiController;
 use App\Http\Controllers\KHukumanDisiplinController;
 use App\Http\Controllers\MKategoriDisiplinController;
+use App\Http\Controllers\PeriodeController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -449,4 +450,9 @@ Route::group(['middleware' => ['auth', 'role:superadmin|pegawai|kepangkatan|admi
     Route::get('/admin/home', [HomeController::class, 'admin']);
     Route::get('/disiplin/home', [HomeController::class, 'disiplin']);
     Route::get('/kepegawaian/home', [HomeController::class, 'kepegawaian']);
+
+    Route::get('/periode', [PeriodeController::class, 'index']);
+    Route::post('/periode', [PeriodeController::class, 'store']);
+    Route::post('/periode/edit', [PeriodeController::class, 'update']);
+    Route::get('/periode/delete/{id}', [PeriodeController::class, 'delete']);
 });

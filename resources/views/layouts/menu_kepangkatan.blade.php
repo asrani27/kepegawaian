@@ -44,6 +44,14 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a href="/periode" class="nav-link {{Request::is('periode') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                    Periode
+                </p>
+            </a>
+        </li>
 
 
         <li class="nav-item">
