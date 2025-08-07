@@ -11,7 +11,7 @@ class PeriodeController extends Controller
     public function index()
     {
         $layanan = Auth::user()->roles->first()->name;
-        $data = Periode::paginate(10);
+        $data = Periode::where('jenis', $layanan)->paginate(10);
         return view('periode.index', compact('data'));
     }
 
