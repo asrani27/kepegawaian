@@ -13,62 +13,69 @@ Beranda
 @section('content')
 <div class="row">
   <div class="col-md-4 col-sm-6 col-12">
-    <div class="info-box bg-gradient-info">
-      <span class="info-box-icon"><i class="fas fa-users"></i></span>
+    <a href="/kepangkatan/baru">
+      <div class="info-box bg-gradient-info">
+        <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">Kenaikan Pangkat</span>
-        <span class="info-box-number">{{$pangkat}}</span>
+        <div class="info-box-content">
+          <span class="info-box-text">Kenaikan Pangkat</span>
+          <span class="info-box-number">{{$pangkat}}</span>
 
-        <div class="progress">
-          <div class="progress-bar" style="width: 70%"></div>
+          <div class="progress">
+            <div class="progress-bar" style="width: 70%"></div>
+          </div>
+          <span class="progress-description">
+            Total Data Pengajuan Kenaikan Pangkat Baru
+          </span>
         </div>
-        <span class="progress-description">
-          Total Data Pengajuan Kenaikan Pangkat
-        </span>
+        <!-- /.info-box-content -->
       </div>
-      <!-- /.info-box-content -->
-    </div>
+    </a>
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
   <div class="col-md-4 col-sm-6 col-12">
-    <div class="info-box bg-gradient-success">
-      <span class="info-box-icon"><i class="fas fa-users"></i></span>
+    <a href="/kepangkatan/diproses">
+      <div class="info-box bg-gradient-success">
+        <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">Kenaikan Diproses</span>
-        <span class="info-box-number">{{$diproses}}</span>
+        <div class="info-box-content">
+          <span class="info-box-text">Kenaikan Diproses</span>
+          <span class="info-box-number">{{$diproses}}</span>
 
-        <div class="progress">
-          <div class="progress-bar" style="width: 70%"></div>
+          <div class="progress">
+            <div class="progress-bar" style="width: 70%"></div>
+          </div>
+          <span class="progress-description">
+            Total Data Kenaikan Pangkat Diproses
+          </span>
         </div>
-        <span class="progress-description">
-          Total Data Kenaikan Pangkat Diproses
-        </span>
+        <!-- /.info-box-content -->
       </div>
-      <!-- /.info-box-content -->
-    </div>
+    </a>
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
   <div class="col-md-4 col-sm-6 col-12">
-    <div class="info-box bg-gradient-warning">
-      <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">Kenaikan Selesai</span>
-        <span class="info-box-number">{{$selesai}}</span>
+    <a href="/kepangkatan/selesai">
+      <div class="info-box bg-gradient-warning">
+        <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-        <div class="progress">
-          <div class="progress-bar" style="width: 70%"></div>
+        <div class="info-box-content">
+          <span class="info-box-text">Kenaikan Selesai</span>
+          <span class="info-box-number">{{$selesai}}</span>
+
+          <div class="progress">
+            <div class="progress-bar" style="width: 70%"></div>
+          </div>
+          <span class="progress-description">
+            Total Data kenaikan Pangkat Selesai
+          </span>
         </div>
-        <span class="progress-description">
-          Total Data kenaikan Pangkat Selesai
-        </span>
+        <!-- /.info-box-content -->
       </div>
-      <!-- /.info-box-content -->
-    </div>
+    </a>
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
@@ -121,6 +128,9 @@ Beranda
                 @endif
               </td>
               <td>
+                @if ($item->status == 2)
+                @else
+
                 @if ($item->nama_verifikator == null)
 
                 <a href="/kepangkatan/prosespengajuan/{{$item->id}}" onclick="return confirm('Yakin Ingin di proses?')"
@@ -134,20 +144,10 @@ Beranda
                   class="btn btn-xs btn-success"><i class="fa fa-check"></i>
                   SELESAI</a>
                 @endif
+                @endif
               </td>
             </tr>
             @endforeach
-            {{-- <tr>
-              <td>1.</td>
-              <td>Update software</td>
-              <td>
-                <div class="progress progress-xs">
-                  <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                </div>
-              </td>
-              <td><span class="badge bg-danger">55%</span></td>
-            </tr> --}}
-
           </tbody>
         </table>
       </div>

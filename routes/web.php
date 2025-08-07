@@ -197,6 +197,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
     Route::prefix('kepangkatan')->group(function () {
+        Route::get('baru', [KepangkatanController::class, 'baru']);
+        Route::get('diproses', [KepangkatanController::class, 'diproses']);
+        Route::get('selesai', [KepangkatanController::class, 'selesai']);
 
         Route::get('dokumen/{id}/berkas-ok/{dokumen_id}', [KepangkatanController::class, 'verif_dokumen']);
         Route::post('dokumen/{id}/perbaikidokumen', [KepangkatanController::class, 'perbaiki_dokumen']);

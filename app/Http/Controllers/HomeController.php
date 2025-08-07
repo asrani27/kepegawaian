@@ -78,7 +78,7 @@ class HomeController extends Controller
     public function kepangkatan()
     {
         //Sub Bidang Kepangkatan
-        $pangkat = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->get());
+        $pangkat = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 0)->get());
         $diproses = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->where('verifikator', '!=', null)->get());
         $selesai = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 2)->get());
 
