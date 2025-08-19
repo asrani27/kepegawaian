@@ -119,10 +119,10 @@ BIODATA PEGAWAI
                                 @if ($data->status != 2)
 
                                 @if ($dokumen->verifikasi == 2)
-                                <button class="btn btn-secondary btn-xs upload-perbaikan" href=""
-                                    data-id="{{$item->id}}" data-nama="{{$item->nama}}">Upload </button>
+                                <button class="btn btn-secondary btn-xs upload-perbaikan" data-id="{{$item->id}}"
+                                    data-nama="{{$item->nama}}">Upload </button>
                                 @else
-                                <button class="btn btn-secondary btn-xs upload-dokumen" href="" data-id="{{$item->id}}"
+                                <button class="btn btn-secondary btn-xs upload-dokumen" data-id="{{$item->id}}"
                                     data-nama="{{$item->nama}}">upload </button>
                                 @endif
 
@@ -174,13 +174,13 @@ BIODATA PEGAWAI
     </div>
 </div>
 
-<div class="modal fade" id="modal-upload" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="modal-perbaikan" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/pegawai/home/{{$id}}/dokumen" enctype="multipart/form-data">
+            <form method="post" action="/pegawai/home/{{$id}}/perbaikan" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-gradient-secondary" style="padding:10px">
-                    <h4 class="modal-title text-sm">Upload Perbaikan<span id="nama-upload"></span>
+                    <h4 class="modal-title text-sm">Upload Perbaikan <span id="nama-perbaikan"></span>
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -194,7 +194,8 @@ BIODATA PEGAWAI
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-image"></i> Upload</button>
+                    <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-image"></i> Upload
+                        Perbaikan</button>
                 </div>
             </form>
         </div>
@@ -213,9 +214,10 @@ BIODATA PEGAWAI
 </script>
 <script>
     $(document).on('click', '.upload-perbaikan', function() {
-   $('#persyaratan_id').val($(this).data('id'));
+        console.log('d');
+   $('#perbaikan_id').val($(this).data('id'));
 
-    $('#nama-upload').text($(this).data('nama'));
+    $('#nama-perbaikan').text($(this).data('nama'));
    $("#modal-perbaikan").modal();
 });
 </script>

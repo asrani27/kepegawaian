@@ -48,7 +48,6 @@ class PengajuanController extends Controller
     }
     public function upload_dokumen(Request $req, $id)
     {
-        //dd($req->all());
         $validator = Validator::make($req->all(), [
             'file' => 'required|file|mimes:pdf|max:1024',
         ]);
@@ -86,7 +85,43 @@ class PengajuanController extends Controller
         // $data = Pengajuan::find($id);
         // return view('pegawai.dokumen', compact('id', 'layanan_id', 'data'));
     }
+    public function upload_perbaikan(Request $req, $id)
+    {
+        $validator = Validator::make($req->all(), [
+            'file' => 'required|file|mimes:pdf|max:1024',
+        ]);
+        if ($validator->fails()) {
+            toastr()->error('maks 1 MB');
+            return back();
+        }
+        $persyaratan = Persyaratan::find($req->persyaratan_id)->nama;
+        $jenis = Persyaratan::find($req->persyaratan_id)->jenis;
 
+        $path = Auth::user()->pegawai->nip . '/' . 'pengajuan' . $id;
+        if ($jenis == 'slks') {
+            $filename = str_replace(' ', '_', Auth::user()->pegawai->nip . '_' . Auth::user()->pegawai->nama . '_slks.pdf');
+        } else {
+            $filename = str_replace(' ', '_', Auth::user()->pegawai->nip . '_' . Auth::user()->pegawai->nama . '_' . $persyaratan . '.pdf');
+        }
+        $upload = $req->file('file')->storeAs($jenis . "/" . $path, $filename, 'public');
+
+        $check = Upload::where('pengajuan_id', $id)->where('persyaratan_id', $req->persyaratan_id)->where('pegawai_id', Auth::user()->pegawai->id)->first();
+        if ($check == null) {
+            $new = new Upload();
+            $new->pegawai_id = Auth::user()->pegawai->id;
+            $new->pengajuan_id = $id;
+            $new->persyaratan_id = $req->persyaratan_id;
+            $new->file = $filename;
+            $new->save();
+        } else {
+            $update = $check;
+            $update->file = $filename;
+            $update->perbaikan = 1;
+            $update->save();
+        }
+        toastr()->success('Berhasil Di upload');
+        return redirect('/pegawai/home/' . $id . '/dokumen');
+    }
 
     public function store(Request $req)
     {

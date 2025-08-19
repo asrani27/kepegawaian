@@ -112,6 +112,7 @@ Route::group(['middleware' => ['auth', 'role:pegawai']], function () {
         Route::get('home/{id}/dokumen/kirim', [PengajuanController::class, 'kirim_dokumen']);
         Route::get('home/{id}/dokumen', [PengajuanController::class, 'dokumen']);
         Route::post('home/{id}/dokumen', [PengajuanController::class, 'upload_dokumen']);
+        Route::post('home/{id}/perbaikan', [PengajuanController::class, 'upload_perbaikan']);
         Route::get('home/{id}/layanan', [PengajuanController::class, 'layanan']);
         Route::get('home/{id}/delete', [PengajuanController::class, 'delete']);
         Route::post('home/{id}/layanan', [PengajuanController::class, 'store']);
