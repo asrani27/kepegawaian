@@ -63,14 +63,14 @@ Beranda
                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">SLKS Selesai</span>
+                    <span class="info-box-text">SLKS Memenuhi Syarat</span>
                     <span class="info-box-number">{{$selesai}}</span>
 
                     <div class="progress">
                         <div class="progress-bar" style="width: 70%"></div>
                     </div>
                     <span class="progress-description">
-                        Total Data SLKS Selesai
+                        Total Data SLKS Memenuhi Syarat
                     </span>
                 </div>
                 <!-- /.info-box-content -->
