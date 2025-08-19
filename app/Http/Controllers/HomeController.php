@@ -95,7 +95,7 @@ class HomeController extends Controller
     public function slks()
     {
         //Sub Bidang slks
-        $slks = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 0)->whereNull('verifikator'));
+        $slks = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 0)->whereNull('verifikator')->get());
         $diproses = count(Pengajuan::where('jenis', 'slks')->where('status', 1)->where('verifikator', '!=', null)->get());
         $selesai = count(Pengajuan::where('jenis', 'slks')->where('status', 2)->get());
 
