@@ -108,10 +108,17 @@ BIODATA PEGAWAI
                                 @if ($dokumen != null)
                                 @if ($dokumen->verifikasi == 1)
                                 <span class="badge badge-success"><i class="fa fa-check"></i></span>
-                                @endif @if ($dokumen->verifikasi == 2)
-                                <span class="badge badge-danger"><i class="fa fa-times"></i></span> -
-                                {{$dokumen->keterangan}}
                                 @endif
+
+                                @if ($dokumen->verifikasi == 2)
+                                <span class="badge badge-danger"><i class="fa fa-times"></i></span> -
+                                {{$dokumen->keterangan}}<br />
+                                @endif
+                                @if ($dokumen->perbaikan == 1)
+                                <span class="badge badge-success"><i class="fa fa-check"></i></span> Telah di perbaiki
+
+                                @endif
+
                                 @endif
                             </td>
                             <td style="border:1px solid black;">

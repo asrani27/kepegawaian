@@ -94,8 +94,9 @@ class PengajuanController extends Controller
             toastr()->error('maks 1 MB');
             return back();
         }
-        $persyaratan = Persyaratan::find($req->persyaratan_id)->nama;
-        $jenis = Persyaratan::find($req->persyaratan_id)->jenis;
+
+        $persyaratan = Persyaratan::find($req->perbaikan_id)->nama;
+        $jenis = Persyaratan::find($req->perbaikan_id)->jenis;
 
         $path = Auth::user()->pegawai->nip . '/' . 'pengajuan' . $id;
         if ($jenis == 'slks') {
@@ -105,12 +106,12 @@ class PengajuanController extends Controller
         }
         $upload = $req->file('file')->storeAs($jenis . "/" . $path, $filename, 'public');
 
-        $check = Upload::where('pengajuan_id', $id)->where('persyaratan_id', $req->persyaratan_id)->where('pegawai_id', Auth::user()->pegawai->id)->first();
+        $check = Upload::where('pengajuan_id', $id)->where('persyaratan_id', $req->perbaikan_id)->where('pegawai_id', Auth::user()->pegawai->id)->first();
         if ($check == null) {
             $new = new Upload();
             $new->pegawai_id = Auth::user()->pegawai->id;
             $new->pengajuan_id = $id;
-            $new->persyaratan_id = $req->persyaratan_id;
+            $new->persyaratan_id = $req->perbaikan_id;
             $new->file = $filename;
             $new->save();
         } else {
