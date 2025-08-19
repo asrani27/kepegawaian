@@ -36,7 +36,7 @@ class KepangkatanController extends Controller
 
     private function renderKepangkatanView($tipe)
     {
-        $pangkat = Pengajuan::where('jenis', 'kepangkatan')->where('status', 0)->whereNull('verifikator')->count();
+        $pangkat = Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->whereNull('verifikator')->count();
         $diproses = Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->whereNotNull('verifikator')->count();
         $selesai = Pengajuan::where('jenis', 'kepangkatan')->where('status', 2)->count();
 

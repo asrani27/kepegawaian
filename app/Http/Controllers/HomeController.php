@@ -78,9 +78,9 @@ class HomeController extends Controller
     public function kepangkatan()
     {
         //Sub Bidang Kepangkatan
-        $pangkat = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 0)->get());
-        $diproses = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->where('verifikator', '!=', null)->get());
-        $selesai = count(Pengajuan::where('jenis', 'kepangkatan')->where('status', 2)->get());
+        $pangkat = Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->whereNull('verifikator')->count();
+        $diproses = Pengajuan::where('jenis', 'kepangkatan')->where('status', 1)->whereNotNull('verifikator')->count();
+        $selesai = Pengajuan::where('jenis', 'kepangkatan')->where('status', 2)->count();
 
         $data = Pengajuan::where('jenis', 'kepangkatan')->where('status', '1')->orWhere('status', 0)->get()->map(function ($item) {
             $item->gol_pangkat = $item->pegawai->gol_pangkat;
@@ -95,7 +95,7 @@ class HomeController extends Controller
     public function slks()
     {
         //Sub Bidang slks
-        $slks = Pengajuan::where('jenis', 'slks')->where('status', 0)->whereNull('verifikator')->count();
+        $slks = Pengajuan::where('jenis', 'slks')->where('status', 1)->whereNull('verifikator')->count();
         $diproses = Pengajuan::where('jenis', 'slks')->where('status', 1)->whereNotNull('verifikator')->count();
         $selesai = Pengajuan::where('jenis', 'slks')->where('status', 2)->count();
 

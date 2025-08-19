@@ -31,7 +31,7 @@ class SatyaLencanaController extends Controller
 
     private function renderKepangkatanView($tipe)
     {
-        $slks = Pengajuan::where('jenis', 'slks')->where('status', 0)->whereNull('verifikator')->count();
+        $slks = Pengajuan::where('jenis', 'slks')->where('status', 1)->whereNull('verifikator')->count();
         $diproses = Pengajuan::where('jenis', 'slks')->where('status', 1)->whereNotNull('verifikator')->count();
         $selesai = Pengajuan::where('jenis', 'slks')->where('status', 2)->count();
 
