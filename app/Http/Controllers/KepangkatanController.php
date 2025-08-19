@@ -44,7 +44,7 @@ class KepangkatanController extends Controller
             ->where('jenis', 'kepangkatan');
 
         if ($tipe === 'baru') {
-            $query->where('status', 0)->whereNull('verifikator');
+            $query->where('status', 1)->whereNull('verifikator');
         } elseif ($tipe === 'diproses') {
             $query->where('status', 1)->whereNotNull('verifikator');
         } elseif ($tipe === 'selesai') {

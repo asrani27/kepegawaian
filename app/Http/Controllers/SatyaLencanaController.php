@@ -16,20 +16,20 @@ class SatyaLencanaController extends Controller
 {
     public function baru()
     {
-        return $this->renderKepangkatanView('baru');
+        return $this->renderSLKSView('baru');
     }
 
     public function diproses()
     {
-        return $this->renderKepangkatanView('diproses');
+        return $this->renderSLKSView('diproses');
     }
 
     public function selesai()
     {
-        return $this->renderKepangkatanView('selesai');
+        return $this->renderSLKSView('selesai');
     }
 
-    private function renderKepangkatanView($tipe)
+    private function renderSLKSView($tipe)
     {
         $slks = Pengajuan::where('jenis', 'slks')->where('status', 1)->whereNull('verifikator')->count();
         $diproses = Pengajuan::where('jenis', 'slks')->where('status', 1)->whereNotNull('verifikator')->count();
@@ -39,7 +39,7 @@ class SatyaLencanaController extends Controller
             ->where('jenis', 'slks');
 
         if ($tipe === 'baru') {
-            $query->where('status', 0)->whereNull('verifikator');
+            $query->where('status', 1)->whereNull('verifikator');
         } elseif ($tipe === 'diproses') {
             $query->where('status', 1)->whereNotNull('verifikator');
         } elseif ($tipe === 'selesai') {
