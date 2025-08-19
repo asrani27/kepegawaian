@@ -13,63 +13,70 @@ Beranda
 @section('content')
 <div class="row">
     <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-gradient-info">
-            <span class="info-box-icon"><i class="fas fa-users"></i></span>
+        <a href="/slks/baru">
+            <div class="info-box bg-gradient-info">
+                <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">SLKS</span>
-                <span class="info-box-number">{{$slks}}</span>
+                <div class="info-box-content">
+                    <span class="info-box-text">SLKS</span>
+                    <span class="info-box-number">{{$slks}}</span>
 
-                <div class="progress">
-                    <div class="progress-bar" style="width: 70%"></div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                    <span class="progress-description">
+                        Total Data Pengajuan SLKS Baru
+                    </span>
                 </div>
-                <span class="progress-description">
-                    Total Data Pengajuan SLKS
-                </span>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+            <!-- /.info-box -->
+        </a>
     </div>
     <!-- /.col -->
     <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-gradient-success">
-            <span class="info-box-icon"><i class="fas fa-users"></i></span>
+        <a href="/slks/diproses">
+            <div class="info-box bg-gradient-success">
+                <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">SLKS Diproses</span>
-                <span class="info-box-number">{{$diproses}}</span>
+                <div class="info-box-content">
+                    <span class="info-box-text">SLKS Diproses</span>
+                    <span class="info-box-number">{{$diproses}}</span>
 
-                <div class="progress">
-                    <div class="progress-bar" style="width: 70%"></div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                    <span class="progress-description">
+                        Total Data SLKS Diproses
+                    </span>
                 </div>
-                <span class="progress-description">
-                    Total Data SLKS Diproses
-                </span>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+            <!-- /.info-box -->
+        </a>
     </div>
     <!-- /.col -->
     <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-gradient-warning">
-            <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">SLKS Selesai</span>
-                <span class="info-box-number">{{$selesai}}</span>
+        <a href="/slks/selesai">
+            <div class="info-box bg-gradient-warning">
+                <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
-                <div class="progress">
-                    <div class="progress-bar" style="width: 70%"></div>
+                <div class="info-box-content">
+                    <span class="info-box-text">SLKS Selesai</span>
+                    <span class="info-box-number">{{$selesai}}</span>
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                    <span class="progress-description">
+                        Total Data SLKS Selesai
+                    </span>
                 </div>
-                <span class="progress-description">
-                    Total Data SLKS Selesai
-                </span>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+            <!-- /.info-box -->
+        </a>
     </div>
     <!-- /.col -->
 </div>

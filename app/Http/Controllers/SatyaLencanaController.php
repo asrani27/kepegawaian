@@ -14,6 +14,47 @@ use Illuminate\Support\Facades\Validator;
 
 class SatyaLencanaController extends Controller
 {
+    public function baru()
+    {
+        return $this->renderKepangkatanView('baru');
+    }
+
+    public function diproses()
+    {
+        return $this->renderKepangkatanView('diproses');
+    }
+
+    public function selesai()
+    {
+        return $this->renderKepangkatanView('selesai');
+    }
+
+    private function renderKepangkatanView($tipe)
+    {
+        $slks = Pengajuan::where('jenis', 'slks')->where('status', 0)->whereNull('verifikator')->count();
+        $diproses = Pengajuan::where('jenis', 'slks')->where('status', 1)->whereNotNull('verifikator')->count();
+        $selesai = Pengajuan::where('jenis', 'slks')->where('status', 2)->count();
+
+        $query = Pengajuan::with('pegawai')
+            ->where('jenis', 'slks');
+
+        if ($tipe === 'baru') {
+            $query->where('status', 0)->whereNull('verifikator');
+        } elseif ($tipe === 'diproses') {
+            $query->where('status', 1)->whereNotNull('verifikator');
+        } elseif ($tipe === 'selesai') {
+            $query->where('status', 2);
+        }
+
+        $data = $query->get()->map(function ($item) {
+            $item->gol_pangkat = $item->pegawai->gol_pangkat;
+            return $item;
+        })->sortBy(function ($item) {
+            return sortValue($item->gol_pangkat);
+        })->values();
+
+        return view('slks.home', compact('slks', 'diproses', 'selesai', 'data'));
+    }
     public function user()
     {
         return Auth::user();

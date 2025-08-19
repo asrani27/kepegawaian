@@ -50,7 +50,7 @@ Pangkat
       </div>
       <!-- /.card-body -->
     </div>
-
+    {{$data->links()}}
     <!-- /.card -->
   </div>
 
