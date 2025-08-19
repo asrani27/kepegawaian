@@ -118,8 +118,15 @@ BIODATA PEGAWAI
 
                                 @if ($data->status != 2)
 
+                                @if ($dokumen->verifikasi == 2)
+                                <button class="btn btn-secondary btn-xs upload-perbaikan" href=""
+                                    data-id="{{$item->id}}" data-nama="{{$item->nama}}">Upload </button>
+                                @else
                                 <button class="btn btn-secondary btn-xs upload-dokumen" href="" data-id="{{$item->id}}"
-                                    data-nama="{{$item->nama}}">upload </button> |
+                                    data-nama="{{$item->nama}}">upload </button>
+                                @endif
+
+                                |
                                 <a href="/pegawai/home/{{$id}}/deletedokumen/{{$item->id}}"
                                     onclick="return confirm('Yakin Ingin Dihapus?')" class="btn btn-danger btn-xs">hapus
                                 </a>
@@ -166,15 +173,50 @@ BIODATA PEGAWAI
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-upload" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/pegawai/home/{{$id}}/dokumen" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-gradient-secondary" style="padding:10px">
+                    <h4 class="modal-title text-sm">Upload Perbaikan<span id="nama-upload"></span>
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Max 1 MB</p>
+                    <input type="hidden" id="perbaikan_id" name="perbaikan_id">
+                    <input type="file" name="file" accept="application/pdf" required>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-image"></i> Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')
 <script>
     $(document).on('click', '.upload-dokumen', function() {
-   $('#persyaratan_id').val($(this).data('id'));
+   $('#perbaikan_id').val($(this).data('id'));
 
     $('#nama-upload').text($(this).data('nama'));
    $("#modal-upload").modal();
+});
+</script>
+<script>
+    $(document).on('click', '.upload-perbaikan', function() {
+   $('#persyaratan_id').val($(this).data('id'));
+
+    $('#nama-upload').text($(this).data('nama'));
+   $("#modal-perbaikan").modal();
 });
 </script>
 @endpush
