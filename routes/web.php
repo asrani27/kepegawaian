@@ -244,6 +244,7 @@ Route::group(['middleware' => ['auth', 'role:slks']], function () {
         Route::get('baru', [SatyaLencanaController::class, 'baru']);
         Route::get('diproses', [SatyaLencanaController::class, 'diproses']);
         Route::get('selesai', [SatyaLencanaController::class, 'selesai']);
+        Route::get('export', [SatyaLencanaController::class, 'export']);
 
         Route::get('dokumen/{id}/berkas-ok/{dokumen_id}', [SatyaLencanaController::class, 'verif_dokumen']);
         Route::post('dokumen/{id}/perbaikidokumen', [SatyaLencanaController::class, 'perbaiki_dokumen']);

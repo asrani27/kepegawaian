@@ -104,8 +104,10 @@ BIODATA PEGAWAI
                                 @else - @endif
 
                             </td>
+
                             <td style="border:1px solid black;">
                                 @if ($dokumen != null)
+
                                 @if ($dokumen->verifikasi == 1)
                                 <span class="badge badge-success"><i class="fa fa-check"></i></span>
                                 @endif
@@ -114,9 +116,9 @@ BIODATA PEGAWAI
                                 <span class="badge badge-danger"><i class="fa fa-times"></i></span> -
                                 {{$dokumen->keterangan}}<br />
                                 @endif
+
                                 @if ($dokumen->perbaikan == 1)
                                 <span class="badge badge-success"><i class="fa fa-check"></i></span> Telah di perbaiki
-
                                 @endif
 
                                 @endif

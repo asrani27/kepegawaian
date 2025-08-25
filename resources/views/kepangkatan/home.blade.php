@@ -97,6 +97,7 @@ Beranda
               <th>NIK/Nama</th>
               <th>Golongan</th>
               <th>Dokumen</th>
+              <th>Keterangan</th>
               <th>Di Proses Oleh</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -115,6 +116,16 @@ Beranda
               <td>
                 <a href="/kepangkatan/dokumen/{{$item->id}}" class="btn btn-xs btn-primary"><i class="fa fa-file"></i>
                   Dokumen Persyaratan</a>
+              </td>
+              <td>
+                @if ($item->upload->where('verifikasi', 2)->count() != 0)
+                <span class="text-danger"> {{$item->upload->where('verifikasi', 2)->count()}} <i
+                    class="fa fa-times"></i></span> Perlu Perbaikan <br />
+                @endif
+                @if ($item->upload->where('perbaikan', 1)->count() != 0)
+                <span class="text-success">{{$item->upload->where('perbaikan', 1)->count()}}<i
+                    class="fa fa-check"></i></span> Telah Diperbaiki <br />
+                @endif
               </td>
               <td>
                 {{$item->nama_verifikator == null ? null : $item->nama_verifikator->name}}

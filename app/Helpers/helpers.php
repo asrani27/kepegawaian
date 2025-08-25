@@ -53,7 +53,8 @@ function dokumen($layanan_id, $jenis)
 }
 function checkFile($pengajuan_id, $pegawai_id, $persyaratan_id)
 {
-    return Upload::where('pengajuan_id', $pengajuan_id)->where('pegawai_id', $pegawai_id)->where('persyaratan_id', $persyaratan_id)->first();
+    $data =  Upload::where('pengajuan_id', $pengajuan_id)->where('pegawai_id', $pegawai_id)->where('persyaratan_id', $persyaratan_id)->first();
+    return $data;
 }
 function persyaratan($param)
 {

@@ -9,7 +9,9 @@ use App\Models\Pengajuan;
 use App\Models\Persyaratan;
 use App\Models\SatyaLencana;
 use Illuminate\Http\Request;
+use App\Exports\PengajuanExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class SatyaLencanaController extends Controller
@@ -54,6 +56,10 @@ class SatyaLencanaController extends Controller
         })->values();
 
         return view('slks.home', compact('slks', 'diproses', 'selesai', 'data'));
+    }
+    public function export()
+    {
+        return Excel::download(new PengajuanExport, 'slks.xlsx');
     }
     public function user()
     {
