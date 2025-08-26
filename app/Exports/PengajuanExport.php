@@ -19,7 +19,7 @@ class PengajuanExport implements FromCollection, WithHeadings, WithMapping, With
      */
     public function collection()
     {
-        return Pengajuan::where('jenis', 'slks')->where('status', 2)->get();
+        return Pengajuan::where('jenis', 'slks')->get();
     }
     public function startCell(): string
     {
@@ -45,13 +45,24 @@ class PengajuanExport implements FromCollection, WithHeadings, WithMapping, With
     {
         static $no = 0;
         $no++;
+        if ($pengajuan->status == 1 && $pengajuan->verifikator == null) {
+            $keterangan = 'Baru';
+        } elseif ($pengajuan->status == 1 && $pengajuan->verifikator != null) {
+            $keterangan = 'Diproses';
+        } elseif ($pengajuan->status == 2) {
+            $keterangan = 'Memenuhi Syarat (MS)';
+        } else {
+            $keterangan = '-';
+        }
+
+
         return [
             $no,
             $pengajuan->pegawai->nama ?? '',
             "'" . $pengajuan->pegawai->nip ?? '',
             $pengajuan->layanan->nama ?? '',
             Carbon::parse($pengajuan->created_at)->translatedFormat('d F Y H:i:s') ?? '',
-            'Memenuhi Syarat (MS)' ?? '',
+            $keterangan,
             Carbon::parse($pengajuan->updated_at)->translatedFormat('d F Y H:i:s') ?? '',
         ];
     }
