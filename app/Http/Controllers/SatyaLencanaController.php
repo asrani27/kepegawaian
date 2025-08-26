@@ -35,7 +35,7 @@ class SatyaLencanaController extends Controller
             $files = Storage::disk('public')->allFiles($folder);
 
             foreach ($files as $file) {
-                $fileContent = Storage::disk('public')->get($file);
+                $filePath = Storage::disk('public')->path($file);
                 $zip->addFile($filePath, $file);
             }
 
