@@ -19,7 +19,7 @@ class PengajuanExport implements FromCollection, WithHeadings, WithMapping, With
      */
     public function collection()
     {
-        return Pengajuan::where('jenis', 'slks')->where('status', '!=, 0')->get();
+        return Pengajuan::where('jenis', 'slks')->where('status', '!=', 0)->get();
     }
     public function startCell(): string
     {
