@@ -240,7 +240,7 @@ Route::group(['middleware' => ['auth', 'role:kepangkatan']], function () {
 });
 Route::group(['middleware' => ['auth', 'role:slks']], function () {
     Route::prefix('slks')->group(function () {
-
+        Route::get('/download', [SatyaLencanaController::class, 'downloadSlks']);
         Route::get('baru', [SatyaLencanaController::class, 'baru']);
         Route::get('diproses', [SatyaLencanaController::class, 'diproses']);
         Route::get('selesai', [SatyaLencanaController::class, 'selesai']);

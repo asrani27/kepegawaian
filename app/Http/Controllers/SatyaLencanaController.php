@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use ZipArchive;
 use App\Models\Upload;
 use App\Models\Layanan;
 use App\Models\Pegawai;
+use ZipStream\ZipStream;
 use App\Models\Pengajuan;
 use App\Models\Persyaratan;
 use App\Models\SatyaLencana;
@@ -12,10 +14,35 @@ use Illuminate\Http\Request;
 use App\Exports\PengajuanExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SatyaLencanaController extends Controller
 {
+    public function downloadSlks()
+    {
+        $folder = 'slks';
+        $zipFileName = 'slks.zip';
+
+        $zipPath = storage_path('app/' . $zipFileName);
+
+        if (file_exists($zipPath)) {
+            unlink($zipPath);
+        }
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+            $files = Storage::disk('public')->allFiles($folder);
+
+            foreach ($files as $file) {
+                $fileContent = Storage::disk('public')->get($file);
+                $zip->addFromString($file, $fileContent);
+            }
+
+            $zip->close();
+        }
+        return response()->download($zipPath)->deleteFileAfterSend(true);
+    }
     public function baru()
     {
         return $this->renderSLKSView('baru');

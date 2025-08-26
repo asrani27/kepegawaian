@@ -87,6 +87,8 @@ Beranda
             <div class="card-header">
                 <h3 class="card-title">Daftar ASN yang mengajukan kenaikan pangkat</h3>
                 <div class="card-tools">
+                    <a href="/slks/download" class="btn btn-xs btn-primary" target="_blank">
+                        <i class="fas fa-download"></i> Download</a>
                     <a href="/slks/export" class="btn btn-xs btn-danger" target="_blank">
                         <i class="fas fa-file"></i> Export</a>
                 </div>
