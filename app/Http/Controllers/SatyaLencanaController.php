@@ -36,7 +36,7 @@ class SatyaLencanaController extends Controller
 
             foreach ($files as $file) {
                 $fileContent = Storage::disk('public')->get($file);
-                $zip->addFromString($file, $fileContent);
+                $zip->addFile($filePath, $file);
             }
 
             $zip->close();
