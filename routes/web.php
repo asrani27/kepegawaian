@@ -47,6 +47,7 @@ use App\Http\Controllers\MJenisDisiplinController;
 use App\Http\Controllers\MStatusPegawaiController;
 use App\Http\Controllers\KHukumanDisiplinController;
 use App\Http\Controllers\MKategoriDisiplinController;
+use App\Http\Controllers\NonASNController;
 use App\Http\Controllers\PeriodeController;
 
 Route::get('/', function () {
@@ -100,6 +101,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
         Route::resource('persyaratan', PersyaratanController::class);
         Route::resource('layanan', LayananController::class);
         Route::resource('pegawai', PegawaiController::class);
+        Route::resource('nonasn', NonASNController::class);
         Route::resource('skpd', SkpdController::class);
     });
 });

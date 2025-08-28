@@ -46,7 +46,16 @@
             <a href="/superadmin/pegawai" class="nav-link {{ Request::is('superadmin/pegawai*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                    Pegawai
+                    Pegawai ASN
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/superadmin/nonasn" class="nav-link {{ Request::is('superadmin/nonasn*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                    Pegawai Non ASN
                 </p>
             </a>
         </li>
