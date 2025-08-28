@@ -1,11 +1,16 @@
 <?php
 
+use App\Models\Skpd;
 use App\Models\Upload;
 use App\Models\Berkala;
 use App\Models\Layanan;
-use App\Models\M_jenis_kenaikan_pangkat;
 use App\Models\Persyaratan;
+use App\Models\M_jenis_kenaikan_pangkat;
 
+function skpd()
+{
+    return Skpd::get();
+}
 function listUpload($pegawai_id, $persyaratan_id)
 {
     return Upload::where('pegawai_id', $pegawai_id)->where('persyaratan_id', $persyaratan_id)->get();

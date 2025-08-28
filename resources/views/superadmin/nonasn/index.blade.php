@@ -36,9 +36,9 @@ DATA PEGAWAI NON ASN
                         <tr>
                             <th>#</th>
                             <th>Foto</th>
-                            <th>NIP/Nama</th>
+                            <th>NIK/Nama</th>
                             <th>TTL</th>
-                            <th>Unit Kerja</th>
+                            <th>SKPD</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -58,9 +58,9 @@ DATA PEGAWAI NON ASN
                                     alt="user image" width="60px">
                                 @endif
                             </td>
-                            <td>{{$item->nip}}<br />{{$item->nama}}</td>
+                            <td>{{$item->nik}}<br />{{$item->nama}}</td>
                             <td>{{$item->tempat_lahir}}, {{$item->tanggal_lahir}}</td>
-                            <td>{{$item->unit_kerja}}</td>
+                            <td>{{$item->skpd}}</td>
                             <td>
 
                                 <form action="/superadmin/nonasn/{{$item->id}}" method="post">
