@@ -95,6 +95,7 @@ BIODATA PEGAWAI
                             <td style="border:1px solid black;">
                                 @php
                                 $dokumen = checkFile($id, $data->pegawai->id, $item->id);
+
                                 @endphp
                                 @if ($dokumen)
                                 <a class="btn btn-xs btn-success" target="_blank"
@@ -127,6 +128,10 @@ BIODATA PEGAWAI
 
                                 @if ($data->status != 2)
 
+                                @if ($dokumen == null)
+                                <button class="btn btn-secondary btn-xs upload-dokumen" data-id="{{$item->id}}"
+                                    data-nama="{{$item->nama}}">upload </button>
+                                @else
                                 @if ($dokumen->verifikasi == 2)
                                 <button class="btn btn-secondary btn-xs upload-perbaikan" data-id="{{$item->id}}"
                                     data-nama="{{$item->nama}}">Upload </button>
@@ -134,7 +139,7 @@ BIODATA PEGAWAI
                                 <button class="btn btn-secondary btn-xs upload-dokumen" data-id="{{$item->id}}"
                                     data-nama="{{$item->nama}}">upload </button>
                                 @endif
-
+                                @endif
                                 |
                                 <a href="/pegawai/home/{{$id}}/deletedokumen/{{$item->id}}"
                                     onclick="return confirm('Yakin Ingin Dihapus?')" class="btn btn-danger btn-xs">hapus
@@ -215,7 +220,7 @@ BIODATA PEGAWAI
 @push('js')
 <script>
     $(document).on('click', '.upload-dokumen', function() {
-   $('#perbaikan_id').val($(this).data('id'));
+   $('#persyaratan_id').val($(this).data('id'));
 
     $('#nama-upload').text($(this).data('nama'));
    $("#modal-upload").modal();

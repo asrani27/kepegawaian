@@ -81,9 +81,6 @@ class PengajuanController extends Controller
         }
         toastr()->success('Berhasil Di upload');
         return redirect('/pegawai/home/' . $id . '/dokumen');
-        // $layanan_id = Pengajuan::find($id)->layanan_id;
-        // $data = Pengajuan::find($id);
-        // return view('pegawai.dokumen', compact('id', 'layanan_id', 'data'));
     }
     public function upload_perbaikan(Request $req, $id)
     {
